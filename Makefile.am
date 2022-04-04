@@ -1,7 +1,7 @@
 include guile.am
 
 SOURCES =				\
-pagr.scm
+cdr255/pagr.scm
 
 EXTRA_DIST =				\
 README.md				\
@@ -18,7 +18,7 @@ TESTS=run-tests
 
 CLEANFILES +=                           \
 pagr                        \
-pagr.scm                    \
+cdr255/pagr.scm     \
 pagr
 
 DISTCLEANFILES =                        \
@@ -35,9 +35,10 @@ pagr: src/exe.scm
 	 < $(srcdir)/src/exe.scm > ./pagr
 	chmod +x pagr
 
-pagr.scm:
+cdr255/pagr.scm:
+	mkdir -pv cdr255/
 	cat < $(srcdir)/src/main.scm \
-	> pagr.scm
+	> cdr255/pagr.scm
 
 run-tests:
 		sed -e 's,#!\/usr\/bin\/env -S guile -e main -s,\#!$(GUILE) \\,g' \

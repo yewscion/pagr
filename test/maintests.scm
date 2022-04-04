@@ -14,3 +14,5 @@
 
 (define (main args)
   (basic-tests))
+
+(display (main #f))

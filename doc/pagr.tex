@@ -1,126 +1,62 @@
-# -*- mode:org; epa-file-encrypt-to: ("1102102EBE7C3AE4" "929E9F75D4928BCF") -*-
-#+title: pagr
-#+subtitle: Deal with multiple git repositories
-#+date: <2022-04-04 Mon 16:30>
-#+description:
-#+keywords:
-#+subauthor:
-#+html_doctype: html5
-#+html_container: div
-#+html_link_home:
-#+html_link_up:
-#+html_mathjax:
-#+html_equation_reference_format: \eqref{%s}
-#+html_head:
-#+html_head_extra:
-#+infojs_opt:
-#+creator: Emacs and Org Mode on Guix
-#+latex_header:
-#+texinfo_filename: doc/pagr.info
-#+texinfo_class: info
-#+texinfo_header:
-#+texinfo_post_header:
-#+texinfo_dir_category: yewscion
-#+texinfo_dir_title: Project Name
-#+texinfo_dir_desc: A one sentence description
-#+texinfo_printed_title: Project Name
-#+man_class:
-#+man_class_options:
-#+man_header:
-#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
-#+options: author:t broken-links:nil c:nil creator:nil
-#+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
-#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
-#+options: timestamp:t title:t toc:t todo:t |:t
-#+options: html-preamble:nil html-scripts:nil html-style:nil
-#+options: html-link-use-abs-url:nil html-postamble:nil
-#+options: html5-fancy:nil tex:t
-#+author: Christopher Rodriguez
-#+email: yewscion@gmail.com
-#+language: en
-#+select_tags: export yup
-#+exclude_tags: noexport nope
-#+property: header-args :mkdirp yes :results output verbatim
-#+property: header-args:text :eval never :noweb yes
-#+property: header-args:markdown :eval never :noweb yes
-#+property: header-args:fundamental :eval never :noweb yes
-#+property: header-args:lisp :noweb yes :mkdirp yes
-#+property: header-args:scheme :noweb yes :mkdirp yes :session GUILE
-#+property: header-args:dot :cmd sfdp :mkdirp yes
-#+property: header-args:bash :dir ~ :shebang #!/usr/bin/env -S bash -i
-#+property: header-args:conf :eval never
-#+property: header-args:autoconf :eval never
-#+property: header-args:makefile-automake :eval never
-#+macro: project-name pagr
-#+export_file_name: doc/pagr
-* Concept
-This is a literate programming file made to support the {{{project-name}}}
+% Created 2022-04-04 Mon 17:41
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Christopher Rodriguez}
+\date{\textit{<2022-04-04 Mon 16:30>}}
+\title{pagr\\\medskip
+\large Deal with multiple git repositories}
+\hypersetup{
+ pdfauthor={Christopher Rodriguez},
+ pdftitle={pagr},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs and Org Mode on Guix}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Concept}
+\label{sec:org9610f76}
+This is a literate programming file made to support the pagr
 project.
 
 This section is reserved for a high-level abstract description of what the
-{{{project-name}}} is. In particular, the overview should walk through the
+pagr is. In particular, the overview should walk through the
 program flow as much as possible, to ensure clarity of thought before coding
 begins.
-** Project Variables                                                   :nope:
-This is the namespace for the project; Probably should be =cdr255=, since that's
-what I normally use.
-
-#+name: project-ns
-#+begin_src text
-cdr255
-#+end_src
-
-This should be the name of the project, used in coversation.
-
-#+name: project-name
-#+begin_src text
-pagr
-#+end_src
-
-This is the name of the main executable, to run from the command line.
-
-#+name: program-name
-#+begin_src text
-pagr
-#+end_src
-
-This is the current version of the project.
-
-#+name: project-version
-#+begin_src text
-0.0.1
-#+end_src
-
-This is the email people can use to submit bug reports.
-
-#+name: project-bug-email
-#+begin_src text
-yewscion@gmail.com
-#+end_src
-
-And this is the homepage (or the repository on Sourcehut).
-
-#+name: project-homepage
-#+begin_src text
-https://sr.ht/~yewscion/<<project-name>>
-#+end_src
-** Overview
+\subsection{Overview}
+\label{sec:org75aae72}
 This space intentionally left blank. Please fill it in with more details before
 You actually start coding.
 
-* Generic Project Files
+\section{Generic Project Files}
+\label{sec:orgc4aadff}
 These files exist in every repository, or should, anyway. As this is a literate
 programming file, however, they are also included here. While they can mostly
 stand for themselves, I will add a sentence or two about each, as well as any
 deviations from the norm for this specific repo.
 
-** README
-This is the all-important gateway into the repository. I follow [[https://www.makeareadme.com/][Make a README]]'s
+\subsection{README}
+\label{sec:orgf109d5e}
+This is the all-important gateway into the repository. I follow \href{https://www.makeareadme.com/}{Make a README}'s
 specification in all of my projects, as I think it is important to standardize
 such an outward-facing part of the documentation.
 
-#+begin_src markdown :tangle README.md
-# <<project-name>>
+\begin{verbatim}
+# pagr
 
 One Line Description.
 
@@ -135,7 +71,7 @@ set up, You can just run:
 
 ```
 guix pull
-guix install <<project-name>>
+guix install pagr
 ```
 
 ### Source
@@ -146,7 +82,7 @@ Yourself.
 ## Usage
 
 ```bash
-<<program-name>>
+pagr
 ```
 
 ## Contributing
@@ -160,21 +96,22 @@ documentation.
 [a]: https://guix.gnu.org/
 [b]: https://sr.ht/~yewscion/yewscion-guix-channel/
 [c]: https://choosealicense.com/licenses/agpl-3.0/
-  #+end_src
+\end{verbatim}
 
-** LICENSE
-I am a huge supporter of [[https://en.wikipedia.org/wiki/Free_software][Free Software]], and as such generally use licenses to
+\subsection{LICENSE}
+\label{sec:org06b7db8}
+I am a huge supporter of \href{https://en.wikipedia.org/wiki/Free\_software}{Free Software}, and as such generally use licenses to
 support that stance.
 
 I want to avoid my code being locked away into something someone else is doing,
-and I want to encourage others to also create Free Software. I use the [[https://www.gnu.org/licenses/agpl-3.0.en.html][GNU
-Affero General Public License]] for most of my work because of this. However, if
+and I want to encourage others to also create Free Software. I use the \href{https://www.gnu.org/licenses/agpl-3.0.en.html}{GNU
+Affero General Public License} for most of my work because of this. However, if
 You want to debate licenses, I am open to a casual, friendly discussion.
 
 I chose the following license for this project, for reasons that should be
 explained here if they differ from the above.
 
-#+begin_src text :tangle LICENSE :eval never
+\begin{verbatim}
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
 
@@ -837,18 +774,19 @@ if any, to sign a "copyright disclaimer" for the program, if necessary.
 For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 
-#+end_src
+\end{verbatim}
 
-** Changelog
-All updates to this repository should be logged here. I follow [[https://keepachangelog.com/][Keep a
-Changelog]]'s recommendations here, because again, standardization is important
+\subsection{Changelog}
+\label{sec:org1c6bc0d}
+All updates to this repository should be logged here. I follow \href{https://keepachangelog.com/}{Keep a
+Changelog}'s recommendations here, because again, standardization is important
 for outward-facing documentation.
 
-It's worth noting here that I will keep the links updated to the [[https://sr.ht/][Sourcehut]]
+It's worth noting here that I will keep the links updated to the \href{https://sr.ht/}{Sourcehut}
 repository commits, as that is the main place I will be uploading the source to
 share.
 
-#+begin_src markdown :tangle Changelog.md
+\begin{verbatim}
 # Changelog
 All notable changes to this project will be documented in this file.
 
@@ -863,31 +801,33 @@ and this projectadheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ### Removed
 -
 
-[Unreleased]: https://git.sr.ht/~yewscion/<<project-name>>/log
-#+end_src
+[Unreleased]: https://git.sr.ht/~yewscion/pagr/log
+\end{verbatim}
 
-** AUTHORS
+\subsection{AUTHORS}
+\label{sec:org572e103}
 If You contribute to this repo, Your information belongs in this file. I will
 attempt to ensure this, but if You'd like to simply include Your information
 here in any pull requests, I am more than happy to accept that.
 
-#+begin_src conf :tangle AUTHORS :noweb yes
-# This is the list of the <<project-name>> project's significant contributors.
+\begin{verbatim}
+# This is the list of the pagr project's significant contributors.
 #
 # This does not necessarily list everyone who has contributed code.  To see the
 # full list of contributors, see the revision history in source control.
 Christopher Rodriguez <yewscion@gmail.com>
-#+end_src
+\end{verbatim}
 
-** .gitignore
+\subsection{.gitignore}
+\label{sec:org3ce2d18}
 This is an important file for any git repository. I generate mine using
-[[https://www.toptal.com/developers/gitignore][gitignore.io]] right now, and add to it as needed during work on the project.
+\href{https://www.toptal.com/developers/gitignore}{gitignore.io} right now, and add to it as needed during work on the project.
 
 The default I normally use include emacs, linux, common lisp, scheme, latex, and
 autotools. Any other software used should have things added to this file, or in
 place of this file.
 
-#+begin_src conf :tangle .gitignore
+\begin{verbatim}
 
 # Created by https://www.toptal.com/developers/gitignore/api/emacs,linux,commonlisp,scheme,latex,autotools
 # Edit at https://www.toptal.com/developers/gitignore?templates=emacs,linux,commonlisp,scheme,latex,autotools
@@ -949,41 +889,41 @@ Makefile
 ### Autotools Patch ###
 
 ### CommonLisp ###
-,*.FASL
-,*.fasl
-,*.lisp-temp
-,*.dfsl
-,*.pfsl
-,*.d64fsl
-,*.p64fsl
-,*.lx64fsl
-,*.lx32fsl
-,*.dx64fsl
-,*.dx32fsl
-,*.fx64fsl
-,*.fx32fsl
-,*.sx64fsl
-,*.sx32fsl
-,*.wx64fsl
-,*.wx32fsl
+*.FASL
+*.fasl
+*.lisp-temp
+*.dfsl
+*.pfsl
+*.d64fsl
+*.p64fsl
+*.lx64fsl
+*.lx32fsl
+*.dx64fsl
+*.dx32fsl
+*.fx64fsl
+*.fx32fsl
+*.sx64fsl
+*.sx32fsl
+*.wx64fsl
+*.wx32fsl
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
-,*~
+*~
 \#*\#
 /.emacs.desktop
 /.emacs.desktop.lock
-,*.elc
+*.elc
 auto-save-list
 tramp
 .\#*
 
 # Org-mode
 .org-id-locations
-,*_archive
+*_archive
 
 # flymake-mode
-,*_flymake.*
+*_flymake.*
 
 # eshell files
 /eshell/history
@@ -993,7 +933,7 @@ tramp
 /elpa/
 
 # reftex files
-,*.rel
+*.rel
 
 # AUCTeX auto folder
 /auto/
@@ -1020,23 +960,23 @@ flycheck_*.el
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
-,*.aux
-,*.lof
-,*.log
-,*.lot
-,*.fls
-,*.out
-,*.toc
-,*.fmt
-,*.fot
-,*.cb
-,*.cb2
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
 .*.lb
 
 ## Intermediate documents:
-,*.dvi
-,*.xdv
-,*-converted-to.*
+*.dvi
+*.xdv
+*-converted-to.*
 # these rules might exclude image files for figures etc.
 # *.ps
 # *.eps
@@ -1046,20 +986,20 @@ flycheck_*.el
 .pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
-,*.bbl
-,*.bcf
-,*.blg
-,*-blx.aux
-,*-blx.bib
-,*.run.xml
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
 
 ## Build tool auxiliary files:
-,*.fdb_latexmk
-,*.synctex
-,*.synctex(busy)
-,*.synctex.gz
-,*.synctex.gz(busy)
-,*.pdfsync
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
 
 ## Build tool directories for auxiliary files
 # latexrun
@@ -1067,254 +1007,254 @@ latex.out/
 
 ## Auxiliary and intermediate files from other packages:
 # algorithms
-,*.alg
-,*.loa
+*.alg
+*.loa
 
 # achemso
 acs-*.bib
 
 # amsthm
-,*.thm
+*.thm
 
 # beamer
-,*.nav
-,*.pre
-,*.snm
-,*.vrb
+*.nav
+*.pre
+*.snm
+*.vrb
 
 # changes
-,*.soc
+*.soc
 
 # comment
-,*.cut
+*.cut
 
 # cprotect
-,*.cpt
+*.cpt
 
 # elsarticle (documentclass of Elsevier journals)
-,*.spl
+*.spl
 
 # endnotes
-,*.ent
+*.ent
 
 # fixme
-,*.lox
+*.lox
 
 # feynmf/feynmp
-,*.mf
-,*.mp
-,*.t[1-9]
-,*.t[1-9][0-9]
-,*.tfm
+*.mf
+*.mp
+*.t[1-9]
+*.t[1-9][0-9]
+*.tfm
 
 #(r)(e)ledmac/(r)(e)ledpar
-,*.end
-,*.?end
-,*.[1-9]
-,*.[1-9][0-9]
-,*.[1-9][0-9][0-9]
-,*.[1-9]R
-,*.[1-9][0-9]R
-,*.[1-9][0-9][0-9]R
-,*.eledsec[1-9]
-,*.eledsec[1-9]R
-,*.eledsec[1-9][0-9]
-,*.eledsec[1-9][0-9]R
-,*.eledsec[1-9][0-9][0-9]
-,*.eledsec[1-9][0-9][0-9]R
+*.end
+*.?end
+*.[1-9]
+*.[1-9][0-9]
+*.[1-9][0-9][0-9]
+*.[1-9]R
+*.[1-9][0-9]R
+*.[1-9][0-9][0-9]R
+*.eledsec[1-9]
+*.eledsec[1-9]R
+*.eledsec[1-9][0-9]
+*.eledsec[1-9][0-9]R
+*.eledsec[1-9][0-9][0-9]
+*.eledsec[1-9][0-9][0-9]R
 
 # glossaries
-,*.acn
-,*.acr
-,*.glg
-,*.glo
-,*.gls
-,*.glsdefs
-,*.lzo
-,*.lzs
-,*.slg
-,*.slo
-,*.sls
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.lzo
+*.lzs
+*.slg
+*.slo
+*.sls
 
 # uncomment this for glossaries-extra (will ignore makeindex's style files!)
 # *.ist
 
 # gnuplot
-,*.gnuplot
-,*.table
+*.gnuplot
+*.table
 
 # gnuplottex
-,*-gnuplottex-*
+*-gnuplottex-*
 
 # gregoriotex
-,*.gaux
-,*.glog
-,*.gtex
+*.gaux
+*.glog
+*.gtex
 
 # htlatex
-,*.4ct
-,*.4tc
-,*.idv
-,*.lg
-,*.trc
-,*.xref
+*.4ct
+*.4tc
+*.idv
+*.lg
+*.trc
+*.xref
 
 # hyperref
-,*.brf
+*.brf
 
 # knitr
-,*-concordance.tex
+*-concordance.tex
 # TODO Uncomment the next line if you use knitr and want to ignore its generated tikz files
 # *.tikz
-,*-tikzDictionary
+*-tikzDictionary
 
 # listings
-,*.lol
+*.lol
 
 # luatexja-ruby
-,*.ltjruby
+*.ltjruby
 
 # makeidx
-,*.idx
-,*.ilg
-,*.ind
+*.idx
+*.ilg
+*.ind
 
 # minitoc
-,*.maf
-,*.mlf
-,*.mlt
-,*.mtc[0-9]*
-,*.slf[0-9]*
-,*.slt[0-9]*
-,*.stc[0-9]*
+*.maf
+*.mlf
+*.mlt
+*.mtc[0-9]*
+*.slf[0-9]*
+*.slt[0-9]*
+*.stc[0-9]*
 
 # minted
 _minted*
-,*.pyg
+*.pyg
 
 # morewrites
-,*.mw
+*.mw
 
 # newpax
-,*.newpax
+*.newpax
 
 # nomencl
-,*.nlg
-,*.nlo
-,*.nls
+*.nlg
+*.nlo
+*.nls
 
 # pax
-,*.pax
+*.pax
 
 # pdfpcnotes
-,*.pdfpc
+*.pdfpc
 
 # sagetex
-,*.sagetex.sage
-,*.sagetex.py
-,*.sagetex.scmd
+*.sagetex.sage
+*.sagetex.py
+*.sagetex.scmd
 
 # scrwfile
-,*.wrt
+*.wrt
 
 # svg
 svg-inkscape/
 
 # sympy
-,*.sout
-,*.sympy
+*.sout
+*.sympy
 sympy-plots-for-*.tex/
 
 # pdfcomment
-,*.upa
-,*.upb
+*.upa
+*.upb
 
 # pythontex
-,*.pytxcode
+*.pytxcode
 pythontex-files-*/
 
 # tcolorbox
-,*.listing
+*.listing
 
 # thmtools
-,*.loe
+*.loe
 
 # TikZ & PGF
-,*.dpth
-,*.md5
-,*.auxlock
+*.dpth
+*.md5
+*.auxlock
 
 # titletoc
-,*.ptc
+*.ptc
 
 # todonotes
-,*.tdo
+*.tdo
 
 # vhistory
-,*.hst
-,*.ver
+*.hst
+*.ver
 
 # easy-todo
-,*.lod
+*.lod
 
 # xcolor
-,*.xcp
+*.xcp
 
 # xmpincl
-,*.xmpi
+*.xmpi
 
 # xindy
-,*.xdy
+*.xdy
 
 # xypic precompiled matrices and outlines
-,*.xyc
-,*.xyd
+*.xyc
+*.xyd
 
 # endfloat
-,*.ttt
-,*.fff
+*.ttt
+*.fff
 
 # Latexian
 TSWLatexianTemp*
 
 ## Editors:
 # WinEdt
-,*.bak
-,*.sav
+*.bak
+*.sav
 
 # Texpad
 .texpadtmp
 
 # LyX
-,*.lyx~
+*.lyx~
 
 # Kile
-,*.backup
+*.backup
 
 # gummi
 .*.swp
 
 # KBibTeX
-,*~[0-9]*
+*~[0-9]*
 
 # TeXnicCenter
-,*.tps
+*.tps
 
 # auto folder when using emacs and auctex
 ./auto/*
-,*.el
+*.el
 
 # expex forward references with \gathertags
-,*-tags.tex
+*-tags.tex
 
 # standalone packages
-,*.sta
+*.sta
 
 # Makeindex log files
-,*.lpz
+*.lpz
 
 # xwatermark package
-,*.xwm
+*.xwm
 
 # REVTeX puts footnotes in the bibliography by default, unless the nofootinbib
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
@@ -1323,10 +1263,10 @@ TSWLatexianTemp*
 
 ### LaTeX Patch ###
 # LIPIcs / OASIcs
-,*.vtc
+*.vtc
 
 # glossaries
-,*.glstex
+*.glstex
 
 ### Linux ###
 
@@ -1343,99 +1283,101 @@ TSWLatexianTemp*
 .nfs*
 
 ### Scheme ###
-,*.ss~
-,*.ss#*
+*.ss~
+*.ss#*
 .#*.ss
 
-,*.scm~
-,*.scm#*
+*.scm~
+*.scm#*
 .#*.scm
 
 # End of https://www.toptal.com/developers/gitignore/api/emacs,linux,commonlisp,scheme,latex,autotools
 
 # Custom Add-ons
 
-,*~
+*~
 
 # Add any binaries/preinstall files here.
-#+end_src
+\end{verbatim}
 
-* Language Project Files
+\section{Language Project Files}
+\label{sec:org89a0e1b}
 These files vary based on the programming languages used in a
 project. Otherwise, basically the same as above: Files that need to exist for
 the project, but don't include code outside of defining the project in some
 abstract way.
 
 That said, Guile Scheme doesn't use a project file of any kind (outside of
-things like [[https://gitlab.com/a-sassmannshausen/guile-hall][guile-hall]]).
+things like \href{https://gitlab.com/a-sassmannshausen/guile-hall}{guile-hall}).
 
-Instead, I've opted to use [[https://www.gnu.org/software/automake/faq/autotools-faq.html][GNU Autotools]], as I already was familiar with this
+Instead, I've opted to use \href{https://www.gnu.org/software/automake/faq/autotools-faq.html}{GNU Autotools}, as I already was familiar with this
 setup.
 
-** Bootstrap
-First, we need to bootstrap our setup using =autoreconf=. I use a script to
+\subsection{Bootstrap}
+\label{sec:org3040b24}
+First, we need to bootstrap our setup using \texttt{autoreconf}. I use a script to
 automate this process, but it is really just a single command that needs to be
 run.
 
-#+begin_src bash :tangle bootstrap :shebang #! /bin/sh
+\begin{verbatim}
 echo "Bootstrapping Autotools...";
 autoreconf --verbose --install --force;
-#+end_src
+\end{verbatim}
 
-** Configure
-:PROPERTIES:
-:header-args: :tangle configure.ac :noweb yes
-:END:
-
-That said, it's not much good if there is no =configure.ac= file for it to use
+\subsection{Configure}
+\label{sec:org02a7e57}
+That said, it's not much good if there is no \texttt{configure.ac} file for it to use
 as a guide.
 
-*** Initialize
+\subsubsection{Initialize}
+\label{sec:org63e0655}
 
 We'll initialize autotools with the following: the name of our project, the
 current version, a contact email for bug reports, an expected tarball name, and
 the homepage (which will be the sourcehut mirror of our repo).
 
-#+begin_src autoconf
+\begin{verbatim}
 dnl Process this file with autoconf
-AC_INIT([<<project-name>>],
-        [<<project-version>>],
-        [<<project-bug-email>>],
-        [<<project-name>>-<<project-version>>.tar.gz],
-        [<<project-homepage>>])
-#+end_src
+AC_INIT([pagr],
+        [0.0.1],
+        [yewscion@gmail.com],
+        [pagr-0.0.1.tar.gz],
+        [https://sr.ht/~yewscion/pagr])
+\end{verbatim}
 
-*** Configure Options
-Next, we need to set some =./configure= specific variables.
+\subsubsection{Configure Options}
+\label{sec:org72e0f26}
+Next, we need to set some \texttt{./configure} specific variables.
 
-=AC_CONFIG_SRCDIR=: This is a file we expect to be in the directory that
+\texttt{AC\_CONFIG\_SRCDIR}: This is a file we expect to be in the directory that
 configure is being called in, used as a safety check.
 
-=AC_CONFIG_AUX_DIR=: Commonly specified directory for auxillary scripts, in case
+\texttt{AC\_CONFIG\_AUX\_DIR}: Commonly specified directory for auxillary scripts, in case
 it is needed.
 
-=AM_INIT_AUTOMAKE=: Set Up Automake, with sane defaults for C.
+\texttt{AM\_INIT\_AUTOMAKE}: Set Up Automake, with sane defaults for C.
 
-#+begin_src autoconf :noweb yes
-AC_CONFIG_SRCDIR([<<project-name>>.org])
+\begin{verbatim}
+AC_CONFIG_SRCDIR([pagr.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-#+end_src
+\end{verbatim}
 
-*** Guile Options
+\subsubsection{Guile Options}
+\label{sec:org6c86471}
 Now we'll set up Guile, in the same way as above.
 
-=GUILE_PKG=: This specifies the version of Guile we are looking for with
-=pkg-config=.
+\texttt{GUILE\_PKG}: This specifies the version of Guile we are looking for with
+\texttt{pkg-config}.
 
-=GUILE_PROGS=: This macro looks for programs guile and guild, setting variables
+\texttt{GUILE\_PROGS}: This macro looks for programs guile and guild, setting variables
 GUILE and GUILD to their paths, respectively.
 
-=GUILE_SITE_DIR=: This looks for Guile’s "site" directories. The variable
-GUILE_SITE will be set to Guile’s "site" directory for Scheme source files
+\texttt{GUILE\_SITE\_DIR}: This looks for Guile’s "site" directories. The variable
+GUILE\textsubscript{SITE} will be set to Guile’s "site" directory for Scheme source files
 (usually something like PREFIX/share/guile/site).
 
-#+begin_src autoconf
+\begin{verbatim}
 GUILE_PKG([3.0])
 GUILE_PROGS
 if test "x$GUILD" = "x"; then
@@ -1443,95 +1385,102 @@ if test "x$GUILD" = "x"; then
    please check Your guile installation.])
 fi
 GUILE_SITE_DIR
-#+end_src
+\end{verbatim}
 
-*** Wrap Up
+\subsubsection{Wrap Up}
+\label{sec:org2bd2fe6}
 Specify the files that need to be processed, and process them. Commit with
-=AC_OUTPUT=.
+\texttt{AC\_OUTPUT}.
 
-#+begin_src autoconf
+\begin{verbatim}
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([pre-inst-env], [chmod +x pre-inst-env])
 AC_OUTPUT
-#+end_src
+\end{verbatim}
 
-** Make
-:PROPERTIES:
-:header-args: :tangle Makefile.am :noweb yes
-:END:
+\subsection{Make}
+\label{sec:org40e5684}
 Now we can move on to configuring how the project is made.
 
-*** Guile
+\subsubsection{Guile}
+\label{sec:org931a368}
 There are some Guile-specific things that made sense to keep in their own file,
 and so we'll just include that file here.
-#+begin_src makefile-automake
+\begin{verbatim}
 include guile.am
 
-#+end_src
+\end{verbatim}
 
-*** Sources
+\subsubsection{Sources}
+\label{sec:org29cdb1e}
 These are the source files that will be installed as libraries.
 
-#+begin_src makefile-automake
+\begin{verbatim}
 SOURCES =				\
-<<project-ns>>/<<project-name>>.scm
+cdr255/pagr.scm
 
-#+end_src
+\end{verbatim}
 
-*** Additional Dist Files
+\subsubsection{Additional Dist Files}
+\label{sec:orgc6fc010}
 These files are the files that should be installed alongside the rest of the
 program, for documentation purposes. This includes the unaltered binary scripts,
-the =bootstrap= file and =pre-inst-env.in= files, and the =README.md= should be
+the \texttt{bootstrap} file and \texttt{pre-inst-env.in} files, and the \texttt{README.md} should be
 included here.
 
-#+begin_src makefile-automake
+\begin{verbatim}
 EXTRA_DIST =				\
 README.md				\
 bootstrap				\
 pre-inst-env.in				\
-bin/<<program-name>>.scm
+bin/pagr.scm
 
-#+end_src
+\end{verbatim}
 
-*** Binaries
+\subsubsection{Binaries}
+\label{sec:orgda98686}
 There aren't really guile binaries, but there are scripts I use as though they
 were binaries, the ones that actually use the functions I write that are
 installed as libraries.
 
-#+begin_src makefile-automake
+\begin{verbatim}
 bin_SCRIPTS =				\
-<<program-name>>
+pagr
 
-#+end_src
+\end{verbatim}
 
-*** Tests
-We can specify the tests we want run with =make test=.
+\subsubsection{Tests}
+\label{sec:org43d33dc}
+We can specify the tests we want run with \texttt{make test}.
 
-#+begin_src makefile-automake
+\begin{verbatim}
 TESTS=run-tests
-#+end_src
-*** Cleaning Targets
+\end{verbatim}
+\subsubsection{Cleaning Targets}
+\label{sec:orgb74e40b}
 We also have to specify how make should clean up. Here is the set of heuristics
 that is often quoted for what should be removed where:
 
-- If make built it, and it is commonly something that one would want to
-  rebuild (for instance, a .o file), then *mostlyclean* should delete it.
-- Otherwise, if make built it, then *clean* should delete it.
-- If configure built it, then *distclean* should delete it.
-- If the maintainer built it (for instance, a .info file), then
-  *maintainer-clean* should delete it. However maintainer-clean should not
-  delete anything that needs to exist in order to run ‘./configure && make’.
+\begin{itemize}
+\item If make built it, and it is commonly something that one would want to
+rebuild (for instance, a .o file), then \textbf{mostlyclean} should delete it.
+\item Otherwise, if make built it, then \textbf{clean} should delete it.
+\item If configure built it, then \textbf{distclean} should delete it.
+\item If the maintainer built it (for instance, a .info file), then
+\textbf{maintainer-clean} should delete it. However maintainer-clean should not
+delete anything that needs to exist in order to run ‘./configure \&\& make’.
+\end{itemize}
 
 
-The associated variables are =MOSTLYCLEANFILES=, =CLEANFILES=, =DISTCLEANFILES=,
-and =MAINTAINERCLEANFILES=.
-#+begin_src makefile-automake
+The associated variables are \texttt{MOSTLYCLEANFILES}, \texttt{CLEANFILES}, \texttt{DISTCLEANFILES},
+and \texttt{MAINTAINERCLEANFILES}.
+\begin{verbatim}
 #MOSTLYCLEANFILES +=                    
 
 CLEANFILES +=                           \
-<<project-name>>                        \
-<<project-ns>>/<<project-name>>.scm     \
-<<program-name>>
+pagr                        \
+cdr255/pagr.scm     \
+pagr
 
 DISTCLEANFILES =                        \
 config.status                           \
@@ -1542,55 +1491,62 @@ basic-tests.log
 
 #MAINTAINERCLEANFILES +=                 
 
-#+end_src
-*** Actual Work
+\end{verbatim}
+\subsubsection{Actual Work}
+\label{sec:orgb6db9fa}
 
-**** Binaries
-We should replace the shebang that calls =/usr/bin/env= with the actual guile
+\begin{enumerate}
+\item Binaries
+\label{sec:org5ba7296}
+We should replace the shebang that calls \texttt{/usr/bin/env} with the actual guile
 path on the target machine. That's the main process here, which is mostly
-accomplished with the following call to =sed=:
+accomplished with the following call to \texttt{sed}:
 
-#+name: replace-guile-shebang
-#+begin_src bash :tangle no
+\begin{verbatim}
 	sed -e 's,#!\/usr\/bin\/env -S guile -e main -s,\#!$(GUILE) \\,g'
-#+end_src
+\end{verbatim}
 
 The main executable is included here to speed up single-program development, but
 the basic pattern is the same no matter how many executable scripts are in the
 repository.
 
-#+begin_src makefile-automake 
-<<program-name>>: src/exe.scm
-	<<replace-guile-shebang>> \
-	 < $(srcdir)/src/exe.scm > ./<<program-name>>
-	chmod +x <<program-name>>
-#+end_src
+\begin{verbatim}
+pagr: src/exe.scm
+		sed -e 's,#!\/usr\/bin\/env -S guile -e main -s,\#!$(GUILE) \\,g' \
+	 < $(srcdir)/src/exe.scm > ./pagr
+	chmod +x pagr
+\end{verbatim}
 
-**** Libraries
+\item Libraries
+\label{sec:orgf2cc3ea}
 The libraries contain the bulk of the code that is part of this project. We'll
 do the same as above, include the main library as an example of the form.
 
-#+begin_src makefile-automake
-<<project-ns>>/<<project-name>>.scm:
-	mkdir -pv <<project-ns>>/
+\begin{verbatim}
+cdr255/pagr.scm:
+	mkdir -pv cdr255/
 	cat < $(srcdir)/src/main.scm \
-	> <<project-ns>>/<<project-name>>.scm
-#+end_src
+	> cdr255/pagr.scm
+\end{verbatim}
 
-**** Tests
-#+begin_src makefile-automake
+\item Tests
+\label{sec:org7f03c60}
+\begin{verbatim}
 run-tests:
-	<<replace-guile-shebang>> \
+		sed -e 's,#!\/usr\/bin\/env -S guile -e main -s,\#!$(GUILE) \\,g' \
 	< $(srcdir)/test/maintests.scm \
 	> run-tests
 	chmod +x run-tests
 	guile -C ./ ./run-tests
-#+end_src
-*** Cleanup
+\end{verbatim}
+\end{enumerate}
+\subsubsection{Cleanup}
+\label{sec:orgc8e8ba3}
 
-** guile.am
+\subsection{guile.am}
+\label{sec:orgc8caee5}
 
-#+begin_src makefile-automake :tangle guile.am
+\begin{verbatim}
 moddir = $(datadir)/guile/site/$(GUILE_EFFECTIVE_VERSION)
 godir = $(libdir)/guile/$(GUILE_EFFECTIVE_VERSION)/site-ccache
 
@@ -1613,9 +1569,10 @@ SUFFIXES = .scm .go
 .scm.go:
 	$(AM_V_GEN)$(top_builddir)/pre-inst-env $(GUILD) \
 	compile $(GUILE_WARNINGS) -o "$@" "$<"
-#+end_src
-** pre-inst-env.in
-#+begin_src bash :tangle pre-inst-env.in :shebang
+\end{verbatim}
+\subsection{pre-inst-env.in}
+\label{sec:org9858861}
+\begin{verbatim}
 #!/bin/sh
 
 abs_top_srcdir="`cd "@abs_top_srcdir@" > /dev/null; pwd`"
@@ -1629,34 +1586,34 @@ PATH="$abs_top_builddir:$PATH"
 export PATH
 
 exec "$@"
-#+end_src
+\end{verbatim}
 
-* Code
+\section{Code}
+\label{sec:orgf123b94}
 Finally, we've gotten to the actual code!
 
-** Library
-:PROPERTIES:
-:header-args: :tangle src/main.scm :mkdirp yes
-:END:
-
+\subsection{Library}
+\label{sec:org8b5dcaa}
 Well, almost, anyway. First, let's declare the top of each file as defining a
 specific module, and add any top-of-the-file comments. I refer to these blocks
-as the /preamble/ of each file.
+as the \emph{preamble} of each file.
 
-*** Preamble
+\subsubsection{Preamble}
+\label{sec:orgf796110}
 This is the top of that file.
 
-#+begin_src scheme
-(define-module (<<project-name>>)
+\begin{verbatim}
+(define-module (pagr)
   :use-module (ice-9 ftw)
-  :export (<<program-name>>))
-#+end_src
+  :export (pagr))
+\end{verbatim}
 
-*** Get the Items in a Directory
+\subsubsection{Get the Items in a Directory}
+\label{sec:org50faf0c}
 We'll start with some utility functions. First, a function that will let us
 gather all of the files in a specified directory.
 
-#+begin_src scheme
+\begin{verbatim}
 (define (directory->list directory)
   "Build a list of files in a specified directory.
 
@@ -1678,13 +1635,14 @@ Depends on the directory's state.
    (map
     car
     (cddr (file-system-tree directory)))))
-#+end_src
+\end{verbatim}
 
-*** Is this a Git Repo?
-We only care about git repos right now, so if there's no =/.git/= we need to
+\subsubsection{Is this a Git Repo?}
+\label{sec:org66c8aed}
+We only care about git repos right now, so if there's no \texttt{/.git/} we need to
 ignore the directory.
 
-#+begin_src scheme
+\begin{verbatim}
 (define (repository? directory)
   "Test whether a directory is a git repository.
 
@@ -1702,13 +1660,14 @@ Depends on Directory contents.
 "
 
   (member (string-append directory "/.git") (directory->list directory)))
-#+end_src
+\end{verbatim}
 
-*** Gather Git Repos
-Now we build a list of all git repos (that is, folders with a =.git/= folder
+\subsubsection{Gather Git Repos}
+\label{sec:org472ceee}
+Now we build a list of all git repos (that is, folders with a \texttt{.git/} folder
 inside of them) inside of a specified directory.
 
-#+begin_src scheme
+\begin{verbatim}
 (define (find-git-repos directory)
   "Build a list of git repositories inside a specific directory.
 
@@ -1725,13 +1684,14 @@ Side Effects
 Depends on the Directory's contents.
 "
   (filter repository? (directory->list directory)))
-#+end_src
+\end{verbatim}
 
-*** Push a Git Repo
+\subsubsection{Push a Git Repo}
+\label{sec:org80edf88}
 We'll start by defining how to push a single repository. This part relies on
-=git= being in the path.
+\texttt{git} being in the path.
 
-#+begin_src scheme
+\begin{verbatim}
 (define* (push-git-repo repository remote #:optional (branch "trunk"))
   "Call system git to push a git repository.
 
@@ -1752,12 +1712,13 @@ Relies on outside binary (git)."
   (narrate-directory-push repository)
   (display (string-append "git -C " repository " push " remote " " branch "\n"))
   (system (string-append "git -C " repository " push " remote " " branch)))
-#+end_src
+\end{verbatim}
 
-*** Push All Git Repos (pagr)
+\subsubsection{Push All Git Repos (pagr)}
+\label{sec:org6b42428}
 This is the reason we are here!
 
-#+begin_src scheme
+\begin{verbatim}
 (define* (push-all-git-repos directory remote #:optional (branch "trunk"))
   "Push all git repositories inside of a directory to a specified remote.
 
@@ -1783,15 +1744,18 @@ Entirely based on side effects.
    (find-git-repos directory))
   (farewell-the-user))
 
-#+end_src
+\end{verbatim}
 
-*** Narration
+\subsubsection{Narration}
+\label{sec:org64a1a98}
 These functions all have the same purpose: Communicate to the user what is
 happening.
 
-**** Greeting
+\begin{enumerate}
+\item Greeting
+\label{sec:orgd0fbf2b}
 
-#+begin_src scheme
+\begin{verbatim}
 (define (greet-the-user directory)
   "Tell the user what we're doing.
 
@@ -1809,10 +1773,11 @@ Displays a message to the user.
 "
 
   (display (string-append "Beginning push of all git repos in " directory " now!\n")))
-#+end_src
+\end{verbatim}
 
-**** Pushing
-#+begin_src scheme
+\item Pushing
+\label{sec:orgd690aeb}
+\begin{verbatim}
 (define (narrate-directory-push directory)
   "Tell the user what directory we are pushing, so errors can be caught.
 
@@ -1830,10 +1795,11 @@ Displays a message to the user.
 "
 
   (display (string-append "Pushing " directory " now!\n")))
-#+end_src
+\end{verbatim}
 
-**** Farewell
-#+begin_src scheme
+\item Farewell
+\label{sec:org537e4a6}
+\begin{verbatim}
 (define (farewell-the-user)
   "Say goodbye to the user.
 
@@ -1850,27 +1816,28 @@ Side Effects
 Displays a message to the user."
 
   (display "All directories pushed!\n"))
-#+end_src
+\end{verbatim}
+\end{enumerate}
 
-** Executable
-:PROPERTIES:
-:header-args: :tangle src/exe.scm :mkdirp yes
-:END:
-*** Preamble
+\subsection{Executable}
+\label{sec:orgbb69a66}
+\subsubsection{Preamble}
+\label{sec:org6457814}
 This is the top of that file.
 
-#+begin_src scheme
+\begin{verbatim}
 #!/usr/bin/env -S guile -e main -s
 -e main -s
 !#
-(use-modules (<<project-ns>> <<project-name>>))
-#+end_src
+(use-modules (cdr255 pagr))
+\end{verbatim}
 
-*** Usage
+\subsubsection{Usage}
+\label{sec:orgf65042e}
 Rather than clutter the main function with the usage message, let's define it
 here for future use.
 
-#+begin_src scheme
+\begin{verbatim}
 (define my-usage-message (string-append
                           "Usage: pagr.scm DIRECTORY REMOTE\n\n"
                           
@@ -1887,11 +1854,12 @@ here for future use.
 
                           "Guile Online Help: <https://www.gnu.org/software/guile/>\n"
                           "Local Online Help: 'info guile'\n"))
-#+end_src
+\end{verbatim}
 
-*** Main Function
+\subsubsection{Main Function}
+\label{sec:org357bf87}
 
-#+begin_src scheme
+\begin{verbatim}
 (define (main args)
   (let ((arguments (cdr args)))
     (cond ((not (equal? (length arguments) 2))
@@ -1900,14 +1868,16 @@ here for future use.
            (format #t "ERROR: ~a does not exist!~%" (car arguments)))
           (else
            (push-all-git-repos (car arguments) (cadr arguments))))))
-#+end_src
+\end{verbatim}
 
-** Legacy
+\subsection{Legacy}
+\label{sec:org9293411}
 This project actually grew out of my scripts repository, and here is the
 script's original code for historical sake.
 
-*** Library
-#+begin_src scheme
+\subsubsection{Library}
+\label{sec:org59cda1d}
+\begin{verbatim}
 (define-module (push-all-git-repos)
   :use-module (ice-9 ftw)
   :export (push-all-git-repos))
@@ -1950,10 +1920,11 @@ script's original code for historical sake.
      (push-git-repo repo remote))
    (find-git-repos directory))
   (farewell-the-user))
-#+end_src
+\end{verbatim}
 
-*** Executable
-#+begin_src scheme
+\subsubsection{Executable}
+\label{sec:org611f7a0}
+\begin{verbatim}
 #!/usr/bin/env -S guile -e main -s
 -e main -s
 !#
@@ -1981,37 +1952,38 @@ script's original code for historical sake.
            (format #t "ERROR: ~a does not exist!~%" (car arguments)))
           (else (push-all-git-repos (car arguments) (cadr arguments))))))
 
-#+end_src
+\end{verbatim}
 
-* Tests
-It's important to me to use [[https://en.wikipedia.org/wiki/Unit_testing][Unit Testing]] throughout my development process,
+\section{Tests}
+\label{sec:org302f2ac}
+It's important to me to use \href{https://en.wikipedia.org/wiki/Unit\_testing}{Unit Testing} throughout my development process,
 oftentimes before I actually implement a specific feature. I guess I subscribe
-to the notion of [[https://en.wikipedia.org/wiki/Test-driven_development][TDD]], whether through habit or preference.
+to the notion of \href{https://en.wikipedia.org/wiki/Test-driven\_development}{TDD}, whether through habit or preference.
 
-** Main Tests
-:PROPERTIES:
-:header-args: :tangle test/maintests.scm :mkdirp yes :noweb yes
-:END:
-Anyway, all related files will live under =test/=, and the main file should be
-called =maintests.scm=.
+\subsection{Main Tests}
+\label{sec:orge23ab6d}
+Anyway, all related files will live under \texttt{test/}, and the main file should be
+called \texttt{maintests.scm}.
 
-*** Preamble
-We require the files defined above, as well as [[https://srfi.schemers.org/srfi-64/srfi-64.html][SRFI-64]] for a testing
+\subsubsection{Preamble}
+\label{sec:org25151aa}
+We require the files defined above, as well as \href{https://srfi.schemers.org/srfi-64/srfi-64.html}{SRFI-64} for a testing
 framework.
 
-#+begin_src scheme
+\begin{verbatim}
 #!/usr/bin/env -S guile -e main -s
 -e main -s
 !#
 (use-modules ((srfi srfi-64))) ;; For Unit Testing
-(load "<<project-name>>.scm")
-#+end_src
+(load "pagr.scm")
+\end{verbatim}
 
 Then we move on to the actual tests.
 
-*** Basic Tests
+\subsubsection{Basic Tests}
+\label{sec:org4511443}
 
-#+begin_src scheme :results output
+\begin{verbatim}
 (define (basic-tests)
   ;; Initialize and give a name to a simple testsuite.
   (test-begin "basic-tests")
@@ -2019,27 +1991,13 @@ Then we move on to the actual tests.
   (test-equal "Hello World!\n" (with-output-to-string say-hello))
   ;; End the test.
   (test-end "basic-tests"))
-#+end_src
+\end{verbatim}
 
-*** Main
+\subsubsection{Main}
+\label{sec:org4d30251}
 
-#+begin_src scheme :results output
+\begin{verbatim}
 (define (main args)
   (basic-tests))
-#+end_src
-
-**** Run main in babel                                                 :nope:
-#+begin_src scheme
-(display (main #f))
-#+end_src
-
-* Generate Docs                                                    :noexport:
-** Export Docs
-#+begin_src elisp :results silent
-(make-directory "doc/" t)
-(org-texinfo-export-to-info)
-(org-man-export-to-man)
-(org-html-export-to-html)
-(org-ascii-export-to-ascii)
-(org-latex-export-to-pdf)
-#+end_src
+\end{verbatim}
+\end{document}
