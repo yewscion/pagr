@@ -3,7 +3,7 @@ AC_INIT([pagr],
         [0.0.1],
         [yewscion@gmail.com],
         [pagr-0.0.1.tar.gz],
-        [https://sr.ht/~yewscion/<<project-name>>])
+        [https://sr.ht/~yewscion/pagr])
 
 AC_CONFIG_SRCDIR([pagr.org])
 AC_CONFIG_AUX_DIR([build-aux])

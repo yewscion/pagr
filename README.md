@@ -1,4 +1,4 @@
-# <<project-name>>
+# pagr
 
 One Line Description.
 
@@ -13,7 +13,7 @@ set up, You can just run:
 
 ```
 guix pull
-guix install <<project-name>>
+guix install pagr
 ```
 
 ### Source
@@ -24,7 +24,7 @@ Yourself.
 ## Usage
 
 ```bash
-<<program-name>>
+pagr
 ```
 
 ## Contributing

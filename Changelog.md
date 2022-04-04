@@ -12,4 +12,4 @@ and this projectadheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ### Removed
 -
 
-[Unreleased]: https://git.sr.ht/~yewscion/<<project-name>>/log
+[Unreleased]: https://git.sr.ht/~yewscion/pagr/log

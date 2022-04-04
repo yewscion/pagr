@@ -1,9 +1,9 @@
-(define-module (<<project-name>>)
+(define-module (pagr)
   :use-module (ice-9 ftw)
-  :export (<<program-name>>))
+  :export (pagr))
 
 (define (say-hello)
   (display "Hello World!\n"))
 
-(define (<<program-name>>)
+(define (pagr)
   (say-hello))
