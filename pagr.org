@@ -1647,9 +1647,9 @@ as the /preamble/ of each file.
 This is the top of that file.
 
 #+begin_src scheme
-(define-module (<<project-name>>)
+(define-module (<<project-ns>> <<project-name>>)
   :use-module (ice-9 ftw)
-  :export (<<program-name>>))
+  :export (push-all-git-repos))
 #+end_src
 
 *** Get the Items in a Directory

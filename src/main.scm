@@ -1,6 +1,6 @@
-(define-module (pagr)
+(define-module (cdr255 pagr)
   :use-module (ice-9 ftw)
-  :export (pagr))
+  :export (push-all-git-repos))
 
 (define (directory->list directory)
   "Build a list of files in a specified directory.
