@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-04-04 Mon 17:41 -->
+<!-- 2022-04-18 Mon 17:40 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>pagr</title>
@@ -18,82 +18,84 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2c94263">1. Concept</a>
+<li><a href="#orgc9d1914">1. Concept</a>
 <ul>
-<li><a href="#org9a21e2a">1.1. Overview</a></li>
+<li><a href="#org37bf567">1.1. Overview</a></li>
 </ul>
 </li>
-<li><a href="#org617663d">2. Generic Project Files</a>
+<li><a href="#org6470173">2. Generic Project Files</a>
 <ul>
-<li><a href="#org99cc0de">2.1. README</a></li>
-<li><a href="#orgd85a781">2.2. LICENSE</a></li>
-<li><a href="#orgc4a766d">2.3. Changelog</a></li>
-<li><a href="#org121f77b">2.4. AUTHORS</a></li>
-<li><a href="#org78032f1">2.5. .gitignore</a></li>
+<li><a href="#org58067a3">2.1. README</a></li>
+<li><a href="#org07d2461">2.2. LICENSE</a></li>
+<li><a href="#orgae2fbf1">2.3. Changelog</a></li>
+<li><a href="#orgf12022f">2.4. AUTHORS</a></li>
+<li><a href="#orgb3352e6">2.5. .gitignore</a></li>
 </ul>
 </li>
-<li><a href="#org30f8222">3. Language Project Files</a>
+<li><a href="#orga712de6">3. Language Project Files</a>
 <ul>
-<li><a href="#org1b91b22">3.1. Bootstrap</a></li>
-<li><a href="#org1abc6f5">3.2. Configure</a>
+<li><a href="#org59b48ad">3.1. Bootstrap</a></li>
+<li><a href="#org8320131">3.2. Configure</a>
 <ul>
-<li><a href="#org15b8a21">3.2.1. Initialize</a></li>
-<li><a href="#orgb7fd72c">3.2.2. Configure Options</a></li>
-<li><a href="#orga7457bf">3.2.3. Guile Options</a></li>
-<li><a href="#org0cf9448">3.2.4. Wrap Up</a></li>
+<li><a href="#orga8d5fff">3.2.1. Initialize</a></li>
+<li><a href="#org6dece36">3.2.2. Configure Options</a></li>
+<li><a href="#org2f77c2f">3.2.3. Guile Options</a></li>
+<li><a href="#orgb4aa7e1">3.2.4. Wrap Up</a></li>
 </ul>
 </li>
-<li><a href="#org362064e">3.3. Make</a>
+<li><a href="#org4831c38">3.3. Make</a>
 <ul>
-<li><a href="#orgcbb2e2d">3.3.1. Guile</a></li>
-<li><a href="#orgc6f95f7">3.3.2. Sources</a></li>
-<li><a href="#org08b6187">3.3.3. Additional Dist Files</a></li>
-<li><a href="#orga93b5d2">3.3.4. Binaries</a></li>
-<li><a href="#orgb6bfaa8">3.3.5. Tests</a></li>
-<li><a href="#org98aceb0">3.3.6. Cleaning Targets</a></li>
-<li><a href="#org9356abd">3.3.7. Actual Work</a></li>
-<li><a href="#orgf5ea20f">3.3.8. Cleanup</a></li>
+<li><a href="#orgf832d13">3.3.1. Guile</a></li>
+<li><a href="#org4ed9dbf">3.3.2. Sources</a></li>
+<li><a href="#org6e5a64b">3.3.3. Additional Dist Files</a></li>
+<li><a href="#orgf5671b9">3.3.4. Binaries</a></li>
+<li><a href="#org8be1b14">3.3.5. Tests</a></li>
+<li><a href="#orgb749bc8">3.3.6. Cleaning Targets</a></li>
+<li><a href="#org9490fcb">3.3.7. Actual Work</a></li>
 </ul>
 </li>
-<li><a href="#org5065e04">3.4. guile.am</a></li>
-<li><a href="#org1f05eb4">3.5. pre-inst-env.in</a></li>
+<li><a href="#org02ab18f">3.4. guile.am</a></li>
+<li><a href="#org9458123">3.5. pre-inst-env.in</a></li>
 </ul>
 </li>
-<li><a href="#org9ca4be7">4. Code</a>
+<li><a href="#org0b763a9">4. Code</a>
 <ul>
-<li><a href="#org8327dd7">4.1. Library</a>
+<li><a href="#org29630a7">4.1. Library</a>
 <ul>
-<li><a href="#org553d8c2">4.1.1. Preamble</a></li>
-<li><a href="#org1801ba9">4.1.2. Get the Items in a Directory</a></li>
-<li><a href="#orgd16eba4">4.1.3. Is this a Git Repo?</a></li>
-<li><a href="#org5a03b12">4.1.4. Gather Git Repos</a></li>
-<li><a href="#orge18877d">4.1.5. Push a Git Repo</a></li>
-<li><a href="#orgc8a9640">4.1.6. Push All Git Repos (pagr)</a></li>
-<li><a href="#org87dfcb7">4.1.7. Narration</a></li>
+<li><a href="#orgb460cdb">4.1.1. Preamble</a></li>
+<li><a href="#org5aa43b5">4.1.2. Get the Items in a Directory</a></li>
+<li><a href="#orga1eaa6e">4.1.3. Is this a Git Repo?</a></li>
+<li><a href="#org05066cf">4.1.4. Gather Git Repos</a></li>
+<li><a href="#orgbcab271">4.1.5. Push a Git Repo</a></li>
+<li><a href="#org36a344a">4.1.6. Push All Git Repos (pagr)</a></li>
+<li><a href="#org3643d2f">4.1.7. Status of Repo</a></li>
+<li><a href="#org93b2a72">4.1.8. Status All Git Repos (sagr)</a></li>
+<li><a href="#org8dbc06e">4.1.9. Narration</a></li>
 </ul>
 </li>
-<li><a href="#org42d6cc2">4.2. Executable</a>
+<li><a href="#org16151b5">4.2. Executable</a>
 <ul>
-<li><a href="#orgec9cfa6">4.2.1. Preamble</a></li>
-<li><a href="#org12fbca7">4.2.2. Usage</a></li>
-<li><a href="#orge93c4ee">4.2.3. Main Function</a></li>
+<li><a href="#org93d8dcb">4.2.1. Preamble</a></li>
+<li><a href="#orgab76af0">4.2.2. Option Spec</a></li>
+<li><a href="#org7daf947">4.2.3. Usage</a></li>
+<li><a href="#org7b5db00">4.2.4. Main Function</a></li>
 </ul>
 </li>
-<li><a href="#orgdce89df">4.3. Legacy</a>
+<li><a href="#org97604da">4.3. Legacy</a>
 <ul>
-<li><a href="#org474c66a">4.3.1. Library</a></li>
-<li><a href="#org8da569c">4.3.2. Executable</a></li>
+<li><a href="#org53362e3">4.3.1. Library</a></li>
+<li><a href="#org4cad919">4.3.2. Executable</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org67e3b82">5. Tests</a>
+<li><a href="#orge3973b3">5. Tests</a>
 <ul>
-<li><a href="#org0aaf153">5.1. Main Tests</a>
+<li><a href="#org9d60a64">5.1. Main Tests</a>
 <ul>
-<li><a href="#org6aa29ff">5.1.1. Preamble</a></li>
-<li><a href="#org498ad4d">5.1.2. Basic Tests</a></li>
-<li><a href="#org647ac92">5.1.3. Main</a></li>
+<li><a href="#org2995338">5.1.1. Preamble</a></li>
+<li><a href="#org2ae5ba5">5.1.2. Basic Tests</a></li>
+<li><a href="#org53eaea7">5.1.3. Main</a></li>
 </ul>
 </li>
 </ul>
@@ -101,8 +103,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org2c94263" class="outline-2">
-<h2 id="org2c94263"><span class="section-number-2">1.</span> Concept</h2>
+<div id="outline-container-orgc9d1914" class="outline-2">
+<h2 id="orgc9d1914"><span class="section-number-2">1.</span> Concept</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This is a literate programming file made to support the pagr
@@ -116,8 +118,8 @@ program flow as much as possible, to ensure clarity of thought before coding
 begins.
 </p>
 </div>
-<div id="outline-container-org9a21e2a" class="outline-3">
-<h3 id="org9a21e2a"><span class="section-number-3">1.1.</span> Overview</h3>
+<div id="outline-container-org37bf567" class="outline-3">
+<h3 id="org37bf567"><span class="section-number-3">1.1.</span> Overview</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 This space intentionally left blank. Please fill it in with more details before
@@ -127,8 +129,8 @@ You actually start coding.
 </div>
 </div>
 
-<div id="outline-container-org617663d" class="outline-2">
-<h2 id="org617663d"><span class="section-number-2">2.</span> Generic Project Files</h2>
+<div id="outline-container-org6470173" class="outline-2">
+<h2 id="org6470173"><span class="section-number-2">2.</span> Generic Project Files</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 These files exist in every repository, or should, anyway. As this is a literate
@@ -138,8 +140,8 @@ deviations from the norm for this specific repo.
 </p>
 </div>
 
-<div id="outline-container-org99cc0de" class="outline-3">
-<h3 id="org99cc0de"><span class="section-number-3">2.1.</span> README</h3>
+<div id="outline-container-org58067a3" class="outline-3">
+<h3 id="org58067a3"><span class="section-number-3">2.1.</span> README</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 This is the all-important gateway into the repository. I follow <a href="https://www.makeareadme.com/">Make a README</a>'s
@@ -193,8 +195,8 @@ documentation.
 </div>
 </div>
 
-<div id="outline-container-orgd85a781" class="outline-3">
-<h3 id="orgd85a781"><span class="section-number-3">2.2.</span> LICENSE</h3>
+<div id="outline-container-org07d2461" class="outline-3">
+<h3 id="org07d2461"><span class="section-number-3">2.2.</span> LICENSE</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 I am a huge supporter of <a href="https://en.wikipedia.org/wiki/Free_software">Free Software</a>, and as such generally use licenses to
@@ -881,8 +883,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 </div>
 </div>
 
-<div id="outline-container-orgc4a766d" class="outline-3">
-<h3 id="orgc4a766d"><span class="section-number-3">2.3.</span> Changelog</h3>
+<div id="outline-container-orgae2fbf1" class="outline-3">
+<h3 id="orgae2fbf1"><span class="section-number-3">2.3.</span> Changelog</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 All updates to this repository should be logged here. I follow <a href="https://keepachangelog.com/">Keep a
@@ -917,8 +919,8 @@ and this projectadheres to <span style="color: #b3b3b3;">[</span><span style="co
 </div>
 </div>
 
-<div id="outline-container-org121f77b" class="outline-3">
-<h3 id="org121f77b"><span class="section-number-3">2.4.</span> AUTHORS</h3>
+<div id="outline-container-orgf12022f" class="outline-3">
+<h3 id="orgf12022f"><span class="section-number-3">2.4.</span> AUTHORS</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 If You contribute to this repo, Your information belongs in this file. I will
@@ -937,8 +939,8 @@ Christopher Rodriguez <a href="mailto:yewscion%40gmail.com">&lt;yewscion@gmail.c
 </div>
 </div>
 
-<div id="outline-container-org78032f1" class="outline-3">
-<h3 id="org78032f1"><span class="section-number-3">2.5.</span> .gitignore</h3>
+<div id="outline-container-orgb3352e6" class="outline-3">
+<h3 id="orgb3352e6"><span class="section-number-3">2.5.</span> .gitignore</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 This is an important file for any git repository. I generate mine using
@@ -1428,8 +1430,8 @@ TSWLatexianTemp*
 </div>
 </div>
 
-<div id="outline-container-org30f8222" class="outline-2">
-<h2 id="org30f8222"><span class="section-number-2">3.</span> Language Project Files</h2>
+<div id="outline-container-orga712de6" class="outline-2">
+<h2 id="orga712de6"><span class="section-number-2">3.</span> Language Project Files</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 These files vary based on the programming languages used in a
@@ -1449,8 +1451,8 @@ setup.
 </p>
 </div>
 
-<div id="outline-container-org1b91b22" class="outline-3">
-<h3 id="org1b91b22"><span class="section-number-3">3.1.</span> Bootstrap</h3>
+<div id="outline-container-org59b48ad" class="outline-3">
+<h3 id="org59b48ad"><span class="section-number-3">3.1.</span> Bootstrap</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 First, we need to bootstrap our setup using <code>autoreconf</code>. I use a script to
@@ -1466,8 +1468,8 @@ autoreconf --verbose --install --force;
 </div>
 </div>
 
-<div id="outline-container-org1abc6f5" class="outline-3">
-<h3 id="org1abc6f5"><span class="section-number-3">3.2.</span> Configure</h3>
+<div id="outline-container-org8320131" class="outline-3">
+<h3 id="org8320131"><span class="section-number-3">3.2.</span> Configure</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 That said, it's not much good if there is no <code>configure.ac</code> file for it to use
@@ -1475,8 +1477,8 @@ as a guide.
 </p>
 </div>
 
-<div id="outline-container-org15b8a21" class="outline-4">
-<h4 id="org15b8a21"><span class="section-number-4">3.2.1.</span> Initialize</h4>
+<div id="outline-container-orga8d5fff" class="outline-4">
+<h4 id="orga8d5fff"><span class="section-number-4">3.2.1.</span> Initialize</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 We'll initialize autotools with the following: the name of our project, the
@@ -1496,8 +1498,8 @@ the homepage (which will be the sourcehut mirror of our repo).
 </div>
 </div>
 
-<div id="outline-container-orgb7fd72c" class="outline-4">
-<h4 id="orgb7fd72c"><span class="section-number-4">3.2.2.</span> Configure Options</h4>
+<div id="outline-container-org6dece36" class="outline-4">
+<h4 id="org6dece36"><span class="section-number-4">3.2.2.</span> Configure Options</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 Next, we need to set some <code>./configure</code> specific variables.
@@ -1526,8 +1528,8 @@ it is needed.
 </div>
 </div>
 
-<div id="outline-container-orga7457bf" class="outline-4">
-<h4 id="orga7457bf"><span class="section-number-4">3.2.3.</span> Guile Options</h4>
+<div id="outline-container-org2f77c2f" class="outline-4">
+<h4 id="org2f77c2f"><span class="section-number-4">3.2.3.</span> Guile Options</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 Now we'll set up Guile, in the same way as above.
@@ -1562,8 +1564,8 @@ GUILE_SITE_DIR
 </div>
 </div>
 
-<div id="outline-container-org0cf9448" class="outline-4">
-<h4 id="org0cf9448"><span class="section-number-4">3.2.4.</span> Wrap Up</h4>
+<div id="outline-container-orgb4aa7e1" class="outline-4">
+<h4 id="orgb4aa7e1"><span class="section-number-4">3.2.4.</span> Wrap Up</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <p>
 Specify the files that need to be processed, and process them. Commit with
@@ -1580,16 +1582,16 @@ Specify the files that need to be processed, and process them. Commit with
 </div>
 </div>
 
-<div id="outline-container-org362064e" class="outline-3">
-<h3 id="org362064e"><span class="section-number-3">3.3.</span> Make</h3>
+<div id="outline-container-org4831c38" class="outline-3">
+<h3 id="org4831c38"><span class="section-number-3">3.3.</span> Make</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Now we can move on to configuring how the project is made.
 </p>
 </div>
 
-<div id="outline-container-orgcbb2e2d" class="outline-4">
-<h4 id="orgcbb2e2d"><span class="section-number-4">3.3.1.</span> Guile</h4>
+<div id="outline-container-orgf832d13" class="outline-4">
+<h4 id="orgf832d13"><span class="section-number-4">3.3.1.</span> Guile</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <p>
 There are some Guile-specific things that made sense to keep in their own file,
@@ -1603,8 +1605,8 @@ and so we'll just include that file here.
 </div>
 </div>
 
-<div id="outline-container-orgc6f95f7" class="outline-4">
-<h4 id="orgc6f95f7"><span class="section-number-4">3.3.2.</span> Sources</h4>
+<div id="outline-container-org4ed9dbf" class="outline-4">
+<h4 id="org4ed9dbf"><span class="section-number-4">3.3.2.</span> Sources</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <p>
 These are the source files that will be installed as libraries.
@@ -1619,8 +1621,8 @@ cdr255/pagr.scm
 </div>
 </div>
 
-<div id="outline-container-org08b6187" class="outline-4">
-<h4 id="org08b6187"><span class="section-number-4">3.3.3.</span> Additional Dist Files</h4>
+<div id="outline-container-org6e5a64b" class="outline-4">
+<h4 id="org6e5a64b"><span class="section-number-4">3.3.3.</span> Additional Dist Files</h4>
 <div class="outline-text-4" id="text-3-3-3">
 <p>
 These files are the files that should be installed alongside the rest of the
@@ -1641,8 +1643,8 @@ bin/pagr.scm
 </div>
 </div>
 
-<div id="outline-container-orga93b5d2" class="outline-4">
-<h4 id="orga93b5d2"><span class="section-number-4">3.3.4.</span> Binaries</h4>
+<div id="outline-container-orgf5671b9" class="outline-4">
+<h4 id="orgf5671b9"><span class="section-number-4">3.3.4.</span> Binaries</h4>
 <div class="outline-text-4" id="text-3-3-4">
 <p>
 There aren't really guile binaries, but there are scripts I use as though they
@@ -1659,8 +1661,8 @@ pagr
 </div>
 </div>
 
-<div id="outline-container-orgb6bfaa8" class="outline-4">
-<h4 id="orgb6bfaa8"><span class="section-number-4">3.3.5.</span> Tests</h4>
+<div id="outline-container-org8be1b14" class="outline-4">
+<h4 id="org8be1b14"><span class="section-number-4">3.3.5.</span> Tests</h4>
 <div class="outline-text-4" id="text-3-3-5">
 <p>
 We can specify the tests we want run with <code>make test</code>.
@@ -1672,8 +1674,8 @@ We can specify the tests we want run with <code>make test</code>.
 </div>
 </div>
 </div>
-<div id="outline-container-org98aceb0" class="outline-4">
-<h4 id="org98aceb0"><span class="section-number-4">3.3.6.</span> Cleaning Targets</h4>
+<div id="outline-container-orgb749bc8" class="outline-4">
+<h4 id="orgb749bc8"><span class="section-number-4">3.3.6.</span> Cleaning Targets</h4>
 <div class="outline-text-4" id="text-3-3-6">
 <p>
 We also have to specify how make should clean up. Here is the set of heuristics
@@ -1716,12 +1718,12 @@ basic-tests.log
 </div>
 </div>
 </div>
-<div id="outline-container-org9356abd" class="outline-4">
-<h4 id="org9356abd"><span class="section-number-4">3.3.7.</span> Actual Work</h4>
+<div id="outline-container-org9490fcb" class="outline-4">
+<h4 id="org9490fcb"><span class="section-number-4">3.3.7.</span> Actual Work</h4>
 <div class="outline-text-4" id="text-3-3-7">
 </div>
 <ol class="org-ol">
-<li><a id="org13ffe83"></a>Binaries<br>
+<li><a id="orgb1bf13a"></a>Binaries<br>
 <div class="outline-text-5" id="text-3-3-7-1">
 <p>
 We should replace the shebang that calls <code>/usr/bin/env</code> with the actual guile
@@ -1730,7 +1732,7 @@ accomplished with the following call to <code>sed</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgdedaa3a">        sed -e <span style="color: #e67128;">'s,#!\/usr\/bin\/env -S guile -e main -s,\#!$(</span><span style="color: #fa8072;">GUILE</span><span style="color: #e67128;">) \\,g'</span>
+<pre class="src src-bash" id="org4e10838">        sed -e <span style="color: #e67128;">'s,#!\/usr\/bin\/env -S guile -e main -s,\#!$(</span><span style="color: #fa8072;">GUILE</span><span style="color: #e67128;">) \\,g'</span>
 </pre>
 </div>
 
@@ -1750,7 +1752,7 @@ repository.
 </div>
 </li>
 
-<li><a id="orgc0d6116"></a>Libraries<br>
+<li><a id="orge17d3ad"></a>Libraries<br>
 <div class="outline-text-5" id="text-3-3-7-2">
 <p>
 The libraries contain the bulk of the code that is part of this project. We'll
@@ -1767,7 +1769,7 @@ do the same as above, include the main library as an example of the form.
 </div>
 </li>
 
-<li><a id="org704d607"></a>Tests<br>
+<li><a id="org79e2495"></a>Tests<br>
 <div class="outline-text-5" id="text-3-3-7-3">
 <div class="org-src-container">
 <pre class="src src-makefile-automake"><span style="color: #00ede1; font-weight: bold;">run-tests</span>:
@@ -1782,13 +1784,9 @@ do the same as above, include the main library as an example of the form.
 </li>
 </ol>
 </div>
-<div id="outline-container-orgf5ea20f" class="outline-4">
-<h4 id="orgf5ea20f"><span class="section-number-4">3.3.8.</span> Cleanup</h4>
 </div>
-</div>
-
-<div id="outline-container-org5065e04" class="outline-3">
-<h3 id="org5065e04"><span class="section-number-3">3.4.</span> guile.am</h3>
+<div id="outline-container-org02ab18f" class="outline-3">
+<h3 id="org02ab18f"><span class="section-number-3">3.4.</span> guile.am</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
 <pre class="src src-makefile-automake"><span style="color: #dbdb95;">moddir</span> = $(<span style="color: #dbdb95;">datadir</span>)/guile/site/$(<span style="color: #dbdb95;">GUILE_EFFECTIVE_VERSION</span>)
@@ -1817,8 +1815,8 @@ do the same as above, include the main library as an example of the form.
 </div>
 </div>
 </div>
-<div id="outline-container-org1f05eb4" class="outline-3">
-<h3 id="org1f05eb4"><span class="section-number-3">3.5.</span> pre-inst-env.in</h3>
+<div id="outline-container-org9458123" class="outline-3">
+<h3 id="org9458123"><span class="section-number-3">3.5.</span> pre-inst-env.in</h3>
 <div class="outline-text-3" id="text-3-5">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #74af68;">#</span><span style="color: #74af68;">!/bin/</span><span style="color: #ffad29; font-weight: bold;">sh</span>
@@ -1840,16 +1838,16 @@ do the same as above, include the main library as an example of the form.
 </div>
 </div>
 
-<div id="outline-container-org9ca4be7" class="outline-2">
-<h2 id="org9ca4be7"><span class="section-number-2">4.</span> Code</h2>
+<div id="outline-container-org0b763a9" class="outline-2">
+<h2 id="org0b763a9"><span class="section-number-2">4.</span> Code</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Finally, we've gotten to the actual code!
 </p>
 </div>
 
-<div id="outline-container-org8327dd7" class="outline-3">
-<h3 id="org8327dd7"><span class="section-number-3">4.1.</span> Library</h3>
+<div id="outline-container-org29630a7" class="outline-3">
+<h3 id="org29630a7"><span class="section-number-3">4.1.</span> Library</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Well, almost, anyway. First, let's declare the top of each file as defining a
@@ -1858,24 +1856,25 @@ as the <i>preamble</i> of each file.
 </p>
 </div>
 
-<div id="outline-container-org553d8c2" class="outline-4">
-<h4 id="org553d8c2"><span class="section-number-4">4.1.1.</span> Preamble</h4>
+<div id="outline-container-orgb460cdb" class="outline-4">
+<h4 id="orgb460cdb"><span class="section-number-4">4.1.1.</span> Preamble</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <p>
 This is the top of that file.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define-module</span> (<span style="color: #34cae2;">pagr</span>)
+<pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define-module</span> (<span style="color: #34cae2;">cdr255 pagr</span>)
   <span style="color: #23d7d7;">:use-module</span> (ice-9 ftw)
-  <span style="color: #23d7d7;">:export</span> (pagr))
+  <span style="color: #23d7d7;">:export</span> (push-all-git-repos
+           status-all-git-repos))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1801ba9" class="outline-4">
-<h4 id="org1801ba9"><span class="section-number-4">4.1.2.</span> Get the Items in a Directory</h4>
+<div id="outline-container-org5aa43b5" class="outline-4">
+<h4 id="org5aa43b5"><span class="section-number-4">4.1.2.</span> Get the Items in a Directory</h4>
 <div class="outline-text-4" id="text-4-1-2">
 <p>
 We'll start with some utility functions. First, a function that will let us
@@ -1909,8 +1908,8 @@ gather all of the files in a specified directory.
 </div>
 </div>
 
-<div id="outline-container-orgd16eba4" class="outline-4">
-<h4 id="orgd16eba4"><span class="section-number-4">4.1.3.</span> Is this a Git Repo?</h4>
+<div id="outline-container-orga1eaa6e" class="outline-4">
+<h4 id="orga1eaa6e"><span class="section-number-4">4.1.3.</span> Is this a Git Repo?</h4>
 <div class="outline-text-4" id="text-4-1-3">
 <p>
 We only care about git repos right now, so if there's no <code>/.git/</code> we need to
@@ -1940,8 +1939,8 @@ ignore the directory.
 </div>
 </div>
 
-<div id="outline-container-org5a03b12" class="outline-4">
-<h4 id="org5a03b12"><span class="section-number-4">4.1.4.</span> Gather Git Repos</h4>
+<div id="outline-container-org05066cf" class="outline-4">
+<h4 id="org05066cf"><span class="section-number-4">4.1.4.</span> Gather Git Repos</h4>
 <div class="outline-text-4" id="text-4-1-4">
 <p>
 Now we build a list of all git repos (that is, folders with a <code>.git/</code> folder
@@ -1970,8 +1969,8 @@ inside of them) inside of a specified directory.
 </div>
 </div>
 
-<div id="outline-container-orge18877d" class="outline-4">
-<h4 id="orge18877d"><span class="section-number-4">4.1.5.</span> Push a Git Repo</h4>
+<div id="outline-container-orgbcab271" class="outline-4">
+<h4 id="orgbcab271"><span class="section-number-4">4.1.5.</span> Push a Git Repo</h4>
 <div class="outline-text-4" id="text-4-1-5">
 <p>
 We'll start by defining how to push a single repository. This part relies on
@@ -2004,8 +2003,8 @@ We'll start by defining how to push a single repository. This part relies on
 </div>
 </div>
 
-<div id="outline-container-orgc8a9640" class="outline-4">
-<h4 id="orgc8a9640"><span class="section-number-4">4.1.6.</span> Push All Git Repos (pagr)</h4>
+<div id="outline-container-org36a344a" class="outline-4">
+<h4 id="org36a344a"><span class="section-number-4">4.1.6.</span> Push All Git Repos (pagr)</h4>
 <div class="outline-text-4" id="text-4-1-6">
 <p>
 This is the reason we are here!
@@ -2042,9 +2041,71 @@ This is the reason we are here!
 </div>
 </div>
 
-<div id="outline-container-org87dfcb7" class="outline-4">
-<h4 id="org87dfcb7"><span class="section-number-4">4.1.7.</span> Narration</h4>
+<div id="outline-container-org3643d2f" class="outline-4">
+<h4 id="org3643d2f"><span class="section-number-4">4.1.7.</span> Status of Repo</h4>
 <div class="outline-text-4" id="text-4-1-7">
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define*</span> (<span style="color: #00ede1; font-weight: bold;">status-git-repo</span> repository)
+  <span style="color: #e67128;">"Call system git to check the status of a repository.</span>
+
+<span style="color: #e67128;">Arguments</span>
+<span style="color: #e67128;">=========</span>
+<span style="color: #e67128;">REPOSITORY &lt;string&gt;: The name of the directory the repository lives in locally.</span>
+<span style="color: #e67128;">REMOTE &lt;string&gt;: A remote expected to be tracked in the repo (IGNORED).</span>
+<span style="color: #e67128;">BRANCH &lt;string&gt;: A branch expected to be live in the repo (IGNORED).</span>
+
+<span style="color: #e67128;">Returns</span>
+<span style="color: #e67128;">=======</span>
+<span style="color: #e67128;">A &lt;string&gt; representing the git command's exit status.</span>
+
+<span style="color: #e67128;">Side Effects</span>
+<span style="color: #e67128;">============</span>
+<span style="color: #e67128;">Relies on outside binary (git)."</span>
+
+  (narrate-directory-status repository)
+  (display (string-append <span style="color: #e67128;">"git -C "</span> repository <span style="color: #e67128;">" status -sbM \n"</span>))
+  (system (string-append <span style="color: #e67128;">"git -C "</span> repository <span style="color: #e67128;">" status -sbM \n"</span>)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org93b2a72" class="outline-4">
+<h4 id="org93b2a72"><span class="section-number-4">4.1.8.</span> Status All Git Repos (sagr)</h4>
+<div class="outline-text-4" id="text-4-1-8">
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define*</span> (<span style="color: #00ede1; font-weight: bold;">status-all-git-repos</span> directory remote <span style="color: #23d7d7;">#:optional</span> (branch <span style="color: #e67128;">"trunk"</span>))
+  <span style="color: #e67128;">"Check all git repositories inside of a directory for their current status.</span>
+
+<span style="color: #e67128;">Arguments</span>
+<span style="color: #e67128;">=========</span>
+<span style="color: #e67128;">DIRECTORY &lt;string&gt;: The directory to look for repos inside.</span>
+<span style="color: #e67128;">REMOTE &lt;string&gt;: A remote to push the repos to.</span>
+<span style="color: #e67128;">BRANCH &lt;string&gt;: Which branch to push.</span>
+
+<span style="color: #e67128;">Returns</span>
+<span style="color: #e67128;">=======</span>
+<span style="color: #e67128;">&lt;undefined&gt;</span>
+
+<span style="color: #e67128;">Side Effects</span>
+<span style="color: #e67128;">============</span>
+<span style="color: #e67128;">Entirely based on side effects.</span>
+<span style="color: #e67128;">"</span>
+  (greet-the-user directory)
+  (<span style="color: #ffad29; font-weight: bold;">map</span>
+   (<span style="color: #ffad29; font-weight: bold;">lambda</span> (repo)
+     (status-git-repo repo remote branch))
+   (find-git-repos directory))
+  (farewell-the-user))
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8dbc06e" class="outline-4">
+<h4 id="org8dbc06e"><span class="section-number-4">4.1.9.</span> Narration</h4>
+<div class="outline-text-4" id="text-4-1-9">
 <p>
 These functions all have the same purpose: Communicate to the user what is
 happening.
@@ -2052,8 +2113,8 @@ happening.
 </div>
 
 <ol class="org-ol">
-<li><a id="org757e563"></a>Greeting<br>
-<div class="outline-text-5" id="text-4-1-7-1">
+<li><a id="orgbf8ee0e"></a>Greeting<br>
+<div class="outline-text-5" id="text-4-1-9-1">
 <div class="org-src-container">
 <pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> (<span style="color: #00ede1; font-weight: bold;">greet-the-user</span> directory)
   <span style="color: #e67128;">"Tell the user what we're doing.</span>
@@ -2071,14 +2132,14 @@ happening.
 <span style="color: #e67128;">Displays a message to the user.</span>
 <span style="color: #e67128;">"</span>
 
-  (display (string-append <span style="color: #e67128;">"Beginning push of all git repos in "</span> directory <span style="color: #e67128;">" now!\n"</span>)))
+  (display (string-append <span style="color: #e67128;">"Beginning work on all git repos in "</span> directory <span style="color: #e67128;">" now!\n"</span>)))
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org9d2bfff"></a>Pushing<br>
-<div class="outline-text-5" id="text-4-1-7-2">
+<li><a id="orgce34680"></a>Pushing<br>
+<div class="outline-text-5" id="text-4-1-9-2">
 <div class="org-src-container">
 <pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> (<span style="color: #00ede1; font-weight: bold;">narrate-directory-push</span> directory)
   <span style="color: #e67128;">"Tell the user what directory we are pushing, so errors can be caught.</span>
@@ -2102,8 +2163,34 @@ happening.
 </div>
 </li>
 
-<li><a id="org898d95b"></a>Farewell<br>
-<div class="outline-text-5" id="text-4-1-7-3">
+<li><a id="org2cf817a"></a>Statusing<br>
+<div class="outline-text-5" id="text-4-1-9-3">
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> (<span style="color: #00ede1; font-weight: bold;">narrate-directory-status</span> directory)
+  <span style="color: #e67128;">"Tell the user what directory checking, so errors can be caught.</span>
+
+<span style="color: #e67128;">Arguments</span>
+<span style="color: #e67128;">=========</span>
+<span style="color: #e67128;">DIRECTORY &lt;string&gt;: The directory being checked.</span>
+
+<span style="color: #e67128;">Returns</span>
+<span style="color: #e67128;">=======</span>
+<span style="color: #e67128;">&lt;undefined&gt;</span>
+
+<span style="color: #e67128;">Side Effects</span>
+<span style="color: #e67128;">============</span>
+<span style="color: #e67128;">Displays a message to the user.</span>
+<span style="color: #e67128;">"</span>
+
+  (display (string-append <span style="color: #e67128;">"Checking "</span> directory <span style="color: #e67128;">" now!\n"</span>)))
+
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org3e7d6d8"></a>Farewell<br>
+<div class="outline-text-5" id="text-4-1-9-4">
 <div class="org-src-container">
 <pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> (<span style="color: #00ede1; font-weight: bold;">farewell-the-user</span>)
   <span style="color: #e67128;">"Say goodbye to the user.</span>
@@ -2120,7 +2207,7 @@ happening.
 <span style="color: #e67128;">============</span>
 <span style="color: #e67128;">Displays a message to the user."</span>
 
-  (display <span style="color: #e67128;">"All directories pushed!\n"</span>))
+  (display <span style="color: #e67128;">"All directories processed!\n"</span>))
 </pre>
 </div>
 </div>
@@ -2129,12 +2216,12 @@ happening.
 </div>
 </div>
 
-<div id="outline-container-org42d6cc2" class="outline-3">
-<h3 id="org42d6cc2"><span class="section-number-3">4.2.</span> Executable</h3>
+<div id="outline-container-org16151b5" class="outline-3">
+<h3 id="org16151b5"><span class="section-number-3">4.2.</span> Executable</h3>
 <div class="outline-text-3" id="text-4-2">
 </div>
-<div id="outline-container-orgec9cfa6" class="outline-4">
-<h4 id="orgec9cfa6"><span class="section-number-4">4.2.1.</span> Preamble</h4>
+<div id="outline-container-org93d8dcb" class="outline-4">
+<h4 id="org93d8dcb"><span class="section-number-4">4.2.1.</span> Preamble</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <p>
 This is the top of that file.
@@ -2144,15 +2231,33 @@ This is the top of that file.
 <pre class="src src-scheme">#!/usr/bin/env -S guile -e main -s
 -e main -s
 !#
-(<span style="color: #ffad29; font-weight: bold;">use-modules</span> (cdr255 pagr))
+(<span style="color: #ffad29; font-weight: bold;">use-modules</span> (cdr255 pagr)
+             (ice-9 getopt-long)   <span style="color: #74af68;">; </span><span style="color: #74af68;">For CLI Options and Flags.</span>
+             (ice-9 ftw)           <span style="color: #74af68;">; </span><span style="color: #74af68;">For Filesystem Access.</span>
+             (ice-9 textual-ports) <span style="color: #74af68;">; </span><span style="color: #74af68;">For Writing to Files.</span>
+             (srfi srfi-19))       <span style="color: #74af68;">; </span><span style="color: #74af68;">For Dates.</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org12fbca7" class="outline-4">
-<h4 id="org12fbca7"><span class="section-number-4">4.2.2.</span> Usage</h4>
+<div id="outline-container-orgab76af0" class="outline-4">
+<h4 id="orgab76af0"><span class="section-number-4">4.2.2.</span> Option Spec</h4>
 <div class="outline-text-4" id="text-4-2-2">
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> <span style="color: #00ede1; font-weight: bold;">option-spec</span>
+  '((version (single-char #\v) (value #false))
+    (push (single-char #\p) (value #false))
+    (status (single-char #\s) (value #false))
+    (help (single-char #\h) (value #false))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7daf947" class="outline-4">
+<h4 id="org7daf947"><span class="section-number-4">4.2.3.</span> Usage</h4>
+<div class="outline-text-4" id="text-4-2-3">
 <p>
 Rather than clutter the main function with the usage message, let's define it
 here for future use.
@@ -2160,7 +2265,9 @@ here for future use.
 
 <div class="org-src-container">
 <pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> <span style="color: #00ede1; font-weight: bold;">my-usage-message</span> (string-append
-                          <span style="color: #e67128;">"Usage: pagr.scm DIRECTORY REMOTE\n\n"</span>
+                          <span style="color: #e67128;">"Usage: pagr.scm [-vh] [-s] [-p] DIRECTORY REMOTE BRANCH\n\n"</span>
+
+                          <span style="color: #e67128;">"pagr v0.0.2\n\n"</span>
                           
                           <span style="color: #e67128;">"Explanation of Arguments:\n\n"</span>
                           
@@ -2168,7 +2275,18 @@ here for future use.
                           <span style="color: #e67128;">"             repositories reside.\n"</span>
                           <span style="color: #e67128;">"  REMOTE:    The name of the remote branch to which\n"</span>
                           <span style="color: #e67128;">"             all git repositories found should be\n"</span>
-                          <span style="color: #e67128;">"             pushed.\n\n"</span>
+                          <span style="color: #e67128;">"             pushed.\n"</span>
+                          <span style="color: #e67128;">"  BRANCH:    The name of the branch we're dealing with.\n"</span>
+                          <span style="color: #e67128;">"             Defaults to \"trunk\" if missing.\n\n"</span>
+
+                          <span style="color: #e67128;">"Explanation of Options:\n\n"</span>
+
+                          <span style="color: #e67128;">"  [-v || --version]: Display version and help info.\n"</span>
+                          <span style="color: #e67128;">"  [-h || --help]:    Display this help info.\n"</span>
+                          <span style="color: #e67128;">"  [-s || --status]:  Get the status of all of the git\n"</span>
+                          <span style="color: #e67128;">"                     repositories that are found.\n"</span>
+                          <span style="color: #e67128;">"  [-p || --push]:    Push all the git repositories\n"</span>
+                          <span style="color: #e67128;">"                     that are found.\n\n"</span>
 
                           <span style="color: #e67128;">"This program is entirely written in GNU Guile Scheme,\n"</span>
                           <span style="color: #e67128;">"and You are welcome to change it how You see fit.\n\n"</span>
@@ -2180,26 +2298,47 @@ here for future use.
 </div>
 </div>
 
-<div id="outline-container-orge93c4ee" class="outline-4">
-<h4 id="orge93c4ee"><span class="section-number-4">4.2.3.</span> Main Function</h4>
-<div class="outline-text-4" id="text-4-2-3">
+<div id="outline-container-org7b5db00" class="outline-4">
+<h4 id="org7b5db00"><span class="section-number-4">4.2.4.</span> Main Function</h4>
+<div class="outline-text-4" id="text-4-2-4">
 <div class="org-src-container">
 <pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> (<span style="color: #00ede1; font-weight: bold;">main</span> args)
-  (<span style="color: #ffad29; font-weight: bold;">let</span> ((arguments (cdr args)))
-    (<span style="color: #ffad29; font-weight: bold;">cond</span> ((not (equal? (length arguments) 2))
+  (<span style="color: #ffad29; font-weight: bold;">let*</span> ((options (getopt-long args option-spec))
+        (version (option-ref options 'version #false))
+        (help (option-ref options 'help #false))
+        (non-options (option-ref options '() #false))
+        (push (option-ref options 'push #false))
+        (status (option-ref options 'status #false))
+        (option-count (length options)))
+    (<span style="color: #ffad29; font-weight: bold;">cond</span> ((<span style="color: #ffad29; font-weight: bold;">or</span> version help)
            (display my-usage-message))
-          ((not (file-exists? (car arguments)))
-           (format #t <span style="color: #e67128;">"ERROR: ~a does not exist!~%"</span> (car arguments)))
+          ((not (<span style="color: #ffad29; font-weight: bold;">and</span> (&gt; option-count 1) (&lt; option-count 4)))
+           (format
+            #t
+            (string-append <span style="color: #e67128;">"ERROR: Please supply a DIRECTORY and REPOSITORY "</span>
+                           <span style="color: #e67128;">"(and Optionally a BRANCH).~%"</span>
+                           <span style="color: #e67128;">"You supplied the following: ~a ~%"</span>)
+            non-options))
+          ((not (file-exists? (car non-options)))
+           (format #t <span style="color: #e67128;">"ERROR: Directory ~a does not exist!~%"</span> (car arguments)))
+          ((<span style="color: #ffad29; font-weight: bold;">and</span> (not push) status)
+           (<span style="color: #ffad29; font-weight: bold;">if</span> (= option-count 2)
+               (status-all-git-repos (car non-options) (cdr non-options))
+               (status-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+          ((<span style="color: #ffad29; font-weight: bold;">and</span> (not status) push)
+           (<span style="color: #ffad29; font-weight: bold;">if</span> (= option-count 2)
+               (push-all-git-repos (car non-options) (cdr non-options))
+               (push-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
           (<span style="color: #ffad29; font-weight: bold;">else</span>
-           (push-all-git-repos (car arguments) (cadr arguments))))))
+           (display my-usage-message)))))
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgdce89df" class="outline-3">
-<h3 id="orgdce89df"><span class="section-number-3">4.3.</span> Legacy</h3>
+<div id="outline-container-org97604da" class="outline-3">
+<h3 id="org97604da"><span class="section-number-3">4.3.</span> Legacy</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 This project actually grew out of my scripts repository, and here is the
@@ -2207,8 +2346,8 @@ script's original code for historical sake.
 </p>
 </div>
 
-<div id="outline-container-org474c66a" class="outline-4">
-<h4 id="org474c66a"><span class="section-number-4">4.3.1.</span> Library</h4>
+<div id="outline-container-org53362e3" class="outline-4">
+<h4 id="org53362e3"><span class="section-number-4">4.3.1.</span> Library</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <div class="org-src-container">
 <pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define-module</span> (<span style="color: #34cae2;">push-all-git-repos</span>)
@@ -2258,8 +2397,8 @@ script's original code for historical sake.
 </div>
 </div>
 
-<div id="outline-container-org8da569c" class="outline-4">
-<h4 id="org8da569c"><span class="section-number-4">4.3.2.</span> Executable</h4>
+<div id="outline-container-org4cad919" class="outline-4">
+<h4 id="org4cad919"><span class="section-number-4">4.3.2.</span> Executable</h4>
 <div class="outline-text-4" id="text-4-3-2">
 <div class="org-src-container">
 <pre class="src src-scheme">#!/usr/bin/env -S guile -e main -s
@@ -2296,8 +2435,8 @@ script's original code for historical sake.
 </div>
 </div>
 
-<div id="outline-container-org67e3b82" class="outline-2">
-<h2 id="org67e3b82"><span class="section-number-2">5.</span> Tests</h2>
+<div id="outline-container-orge3973b3" class="outline-2">
+<h2 id="orge3973b3"><span class="section-number-2">5.</span> Tests</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 It's important to me to use <a href="https://en.wikipedia.org/wiki/Unit_testing">Unit Testing</a> throughout my development process,
@@ -2306,8 +2445,8 @@ to the notion of <a href="https://en.wikipedia.org/wiki/Test-driven_development"
 </p>
 </div>
 
-<div id="outline-container-org0aaf153" class="outline-3">
-<h3 id="org0aaf153"><span class="section-number-3">5.1.</span> Main Tests</h3>
+<div id="outline-container-org9d60a64" class="outline-3">
+<h3 id="org9d60a64"><span class="section-number-3">5.1.</span> Main Tests</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Anyway, all related files will live under <code>test/</code>, and the main file should be
@@ -2315,8 +2454,8 @@ called <code>maintests.scm</code>.
 </p>
 </div>
 
-<div id="outline-container-org6aa29ff" class="outline-4">
-<h4 id="org6aa29ff"><span class="section-number-4">5.1.1.</span> Preamble</h4>
+<div id="outline-container-org2995338" class="outline-4">
+<h4 id="org2995338"><span class="section-number-4">5.1.1.</span> Preamble</h4>
 <div class="outline-text-4" id="text-5-1-1">
 <p>
 We require the files defined above, as well as <a href="https://srfi.schemers.org/srfi-64/srfi-64.html">SRFI-64</a> for a testing
@@ -2338,8 +2477,8 @@ Then we move on to the actual tests.
 </div>
 </div>
 
-<div id="outline-container-org498ad4d" class="outline-4">
-<h4 id="org498ad4d"><span class="section-number-4">5.1.2.</span> Basic Tests</h4>
+<div id="outline-container-org2ae5ba5" class="outline-4">
+<h4 id="org2ae5ba5"><span class="section-number-4">5.1.2.</span> Basic Tests</h4>
 <div class="outline-text-4" id="text-5-1-2">
 <div class="org-src-container">
 <pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> (<span style="color: #00ede1; font-weight: bold;">basic-tests</span>)
@@ -2354,8 +2493,8 @@ Then we move on to the actual tests.
 </div>
 </div>
 
-<div id="outline-container-org647ac92" class="outline-4">
-<h4 id="org647ac92"><span class="section-number-4">5.1.3.</span> Main</h4>
+<div id="outline-container-org53eaea7" class="outline-4">
+<h4 id="org53eaea7"><span class="section-number-4">5.1.3.</span> Main</h4>
 <div class="outline-text-4" id="text-5-1-3">
 <div class="org-src-container">
 <pre class="src src-scheme">(<span style="color: #ffad29; font-weight: bold;">define</span> (<span style="color: #00ede1; font-weight: bold;">main</span> args)

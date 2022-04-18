@@ -1595,9 +1595,6 @@ Tests
 .fi
 .RE
 .RE
-.SS "Cleanup"
-nil
-
 .SS "guile.am"
 .RS
 .nf
@@ -1662,9 +1659,10 @@ This is the top of that file.
 
 .RS
 .nf
-\fC(define-module (pagr)
+\fC(define-module (cdr255 pagr)
   :use-module (ice-9 ftw)
-  :export (pagr))
+  :export (push-all-git-repos
+           status-all-git-repos))
 \fP
 .fi
 .RE
@@ -1822,6 +1820,64 @@ Entirely based on side effects.
 .fi
 .RE
 
+.SS "Status of Repo"
+.RS
+.nf
+\fC(define* (status-git-repo repository)
+  "Call system git to check the status of a repository.
+
+Arguments
+=========
+REPOSITORY <string>: The name of the directory the repository lives in locally.
+REMOTE <string>: A remote expected to be tracked in the repo (IGNORED).
+BRANCH <string>: A branch expected to be live in the repo (IGNORED).
+
+Returns
+=======
+A <string> representing the git command's exit status.
+
+Side Effects
+============
+Relies on outside binary (git)."
+
+  (narrate-directory-status repository)
+  (display (string-append "git -C " repository " status -sbM \n"))
+  (system (string-append "git -C " repository " status -sbM \n")))
+\fP
+.fi
+.RE
+
+.SS "Status All Git Repos (sagr)"
+.RS
+.nf
+\fC(define* (status-all-git-repos directory remote #:optional (branch "trunk"))
+  "Check all git repositories inside of a directory for their current status.
+
+Arguments
+=========
+DIRECTORY <string>: The directory to look for repos inside.
+REMOTE <string>: A remote to push the repos to.
+BRANCH <string>: Which branch to push.
+
+Returns
+=======
+<undefined>
+
+Side Effects
+============
+Entirely based on side effects.
+"
+  (greet-the-user directory)
+  (map
+   (lambda (repo)
+     (status-git-repo repo remote branch))
+   (find-git-repos directory))
+  (farewell-the-user))
+
+\fP
+.fi
+.RE
+
 .SS "Narration"
 .PP
 These functions all have the same purpose: Communicate to the user what is
@@ -1850,7 +1906,7 @@ Side Effects
 Displays a message to the user.
 "
 
-  (display (string-append "Beginning push of all git repos in " directory " now!\n")))
+  (display (string-append "Beginning work on all git repos in " directory " now!\n")))
 \fP
 .fi
 .RE
@@ -1886,6 +1942,35 @@ Displays a message to the user.
 
 .TP
 .ft I
+Statusing
+.ft
+.RS
+.nf
+\fC(define (narrate-directory-status directory)
+  "Tell the user what directory checking, so errors can be caught.
+
+Arguments
+=========
+DIRECTORY <string>: The directory being checked.
+
+Returns
+=======
+<undefined>
+
+Side Effects
+============
+Displays a message to the user.
+"
+
+  (display (string-append "Checking " directory " now!\n")))
+
+\fP
+.fi
+.RE
+.RE
+
+.TP
+.ft I
 Farewell
 .ft
 .RS
@@ -1905,7 +1990,7 @@ Side Effects
 ============
 Displays a message to the user."
 
-  (display "All directories pushed!\n"))
+  (display "All directories processed!\n"))
 \fP
 .fi
 .RE
@@ -1921,7 +2006,23 @@ This is the top of that file.
 \fC#!/usr/bin/env -S guile -e main -s
 -e main -s
 !#
-(use-modules (cdr255 pagr))
+(use-modules (cdr255 pagr)
+             (ice-9 getopt-long)   ; For CLI Options and Flags.
+             (ice-9 ftw)           ; For Filesystem Access.
+             (ice-9 textual-ports) ; For Writing to Files.
+             (srfi srfi-19))       ; For Dates.
+\fP
+.fi
+.RE
+
+.SS "Option Spec"
+.RS
+.nf
+\fC(define option-spec
+  '((version (single-char #\v) (value #false))
+    (push (single-char #\p) (value #false))
+    (status (single-char #\s) (value #false))
+    (help (single-char #\h) (value #false))))
 \fP
 .fi
 .RE
@@ -1934,7 +2035,9 @@ here for future use.
 .RS
 .nf
 \fC(define my-usage-message (string-append
-                          "Usage: pagr.scm DIRECTORY REMOTE\n\n"
+                          "Usage: pagr.scm [-vh] [-s] [-p] DIRECTORY REMOTE BRANCH\n\n"
+
+                          "pagr v0.0.2\n\n"
                           
                           "Explanation of Arguments:\n\n"
                           
@@ -1942,7 +2045,18 @@ here for future use.
                           "             repositories reside.\n"
                           "  REMOTE:    The name of the remote branch to which\n"
                           "             all git repositories found should be\n"
-                          "             pushed.\n\n"
+                          "             pushed.\n"
+                          "  BRANCH:    The name of the branch we're dealing with.\n"
+                          "             Defaults to \"trunk\" if missing.\n\n"
+
+                          "Explanation of Options:\n\n"
+
+                          "  [-v || --version]: Display version and help info.\n"
+                          "  [-h || --help]:    Display this help info.\n"
+                          "  [-s || --status]:  Get the status of all of the git\n"
+                          "                     repositories that are found.\n"
+                          "  [-p || --push]:    Push all the git repositories\n"
+                          "                     that are found.\n\n"
 
                           "This program is entirely written in GNU Guile Scheme,\n"
                           "and You are welcome to change it how You see fit.\n\n"
@@ -1957,13 +2071,34 @@ here for future use.
 .RS
 .nf
 \fC(define (main args)
-  (let ((arguments (cdr args)))
-    (cond ((not (equal? (length arguments) 2))
+  (let* ((options (getopt-long args option-spec))
+        (version (option-ref options 'version #false))
+        (help (option-ref options 'help #false))
+        (non-options (option-ref options '() #false))
+        (push (option-ref options 'push #false))
+        (status (option-ref options 'status #false))
+        (option-count (length options)))
+    (cond ((or version help)
            (display my-usage-message))
-          ((not (file-exists? (car arguments)))
-           (format #t "ERROR: ~a does not exist!~%" (car arguments)))
+          ((not (and (> option-count 1) (< option-count 4)))
+           (format
+            #t
+            (string-append "ERROR: Please supply a DIRECTORY and REPOSITORY "
+                           "(and Optionally a BRANCH).~%"
+                           "You supplied the following: ~a ~%")
+            non-options))
+          ((not (file-exists? (car non-options)))
+           (format #t "ERROR: Directory ~a does not exist!~%" (car arguments)))
+          ((and (not push) status)
+           (if (= option-count 2)
+               (status-all-git-repos (car non-options) (cdr non-options))
+               (status-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+          ((and (not status) push)
+           (if (= option-count 2)
+               (push-all-git-repos (car non-options) (cdr non-options))
+               (push-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
           (else
-           (push-all-git-repos (car arguments) (cadr arguments))))))
+           (display my-usage-message)))))
 \fP
 .fi
 .RE

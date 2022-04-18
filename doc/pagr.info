@@ -57,7 +57,6 @@ Make
 * Tests::
 * Cleaning Targets::
 * Actual Work::
-* Cleanup::
 
 Code
 
@@ -73,11 +72,14 @@ Library
 * Gather Git Repos::
 * Push a Git Repo::
 * Push All Git Repos (pagr)::
+* Status of Repo::
+* Status All Git Repos (sagr)::
 * Narration::
 
 Executable
 
 * Preamble: Preamble (1).
+* Option Spec::
 * Usage::
 * Main Function::
 
@@ -1559,7 +1561,6 @@ Now we can move on to configuring how the project is made.
 * Tests::
 * Cleaning Targets::
 * Actual Work::
-* Cleanup::
 
 
 File: pagr.info,  Node: Guile,  Next: Sources,  Up: Make
@@ -1665,7 +1666,7 @@ heuristics that is often quoted for what should be removed where:
 
 
 
-File: pagr.info,  Node: Actual Work,  Next: Cleanup,  Prev: Cleaning Targets,  Up: Make
+File: pagr.info,  Node: Actual Work,  Prev: Cleaning Targets,  Up: Make
 
 3.3.7 Actual Work
 -----------------
@@ -1707,12 +1708,6 @@ File: pagr.info,  Node: Actual Work,  Next: Cleanup,  Prev: Cleaning Targets,  U
                   > run-tests
                   chmod +x run-tests
                   guile -C ./ ./run-tests
-
-
-File: pagr.info,  Node: Cleanup,  Prev: Actual Work,  Up: Make
-
-3.3.8 Cleanup
--------------
 
 
 File: pagr.info,  Node: guileam,  Next: pre-inst-envin,  Prev: Make,  Up: Language Project Files
@@ -1795,6 +1790,8 @@ refer to these blocks as the _preamble_ of each file.
 * Gather Git Repos::
 * Push a Git Repo::
 * Push All Git Repos (pagr)::
+* Status of Repo::
+* Status All Git Repos (sagr)::
 * Narration::
 
 
@@ -1805,9 +1802,10 @@ File: pagr.info,  Node: Preamble,  Next: Get the Items in a Directory,  Up: Libr
 
 This is the top of that file.
 
-     (define-module (pagr)
+     (define-module (cdr255 pagr)
        :use-module (ice-9 ftw)
-       :export (pagr))
+       :export (push-all-git-repos
+                status-all-git-repos))
 
 
 File: pagr.info,  Node: Get the Items in a Directory,  Next: Is this a Git Repo?,  Prev: Preamble,  Up: Library
@@ -1924,7 +1922,7 @@ relies on ‘git’ being in the path.
        (system (string-append "git -C " repository " push " remote " " branch)))
 
 
-File: pagr.info,  Node: Push All Git Repos (pagr),  Next: Narration,  Prev: Push a Git Repo,  Up: Library
+File: pagr.info,  Node: Push All Git Repos (pagr),  Next: Status of Repo,  Prev: Push a Git Repo,  Up: Library
 
 4.1.6 Push All Git Repos (pagr)
 -------------------------------
@@ -1958,9 +1956,67 @@ This is the reason we are here!
 
 
 
-File: pagr.info,  Node: Narration,  Prev: Push All Git Repos (pagr),  Up: Library
+File: pagr.info,  Node: Status of Repo,  Next: Status All Git Repos (sagr),  Prev: Push All Git Repos (pagr),  Up: Library
 
-4.1.7 Narration
+4.1.7 Status of Repo
+--------------------
+
+     (define* (status-git-repo repository)
+       "Call system git to check the status of a repository.
+
+     Arguments
+     =========
+     REPOSITORY <string>: The name of the directory the repository lives in locally.
+     REMOTE <string>: A remote expected to be tracked in the repo (IGNORED).
+     BRANCH <string>: A branch expected to be live in the repo (IGNORED).
+
+     Returns
+     =======
+     A <string> representing the git command's exit status.
+
+     Side Effects
+     ============
+     Relies on outside binary (git)."
+
+       (narrate-directory-status repository)
+       (display (string-append "git -C " repository " status -sbM \n"))
+       (system (string-append "git -C " repository " status -sbM \n")))
+
+
+File: pagr.info,  Node: Status All Git Repos (sagr),  Next: Narration,  Prev: Status of Repo,  Up: Library
+
+4.1.8 Status All Git Repos (sagr)
+---------------------------------
+
+     (define* (status-all-git-repos directory remote #:optional (branch "trunk"))
+       "Check all git repositories inside of a directory for their current status.
+
+     Arguments
+     =========
+     DIRECTORY <string>: The directory to look for repos inside.
+     REMOTE <string>: A remote to push the repos to.
+     BRANCH <string>: Which branch to push.
+
+     Returns
+     =======
+     <undefined>
+
+     Side Effects
+     ============
+     Entirely based on side effects.
+     "
+       (greet-the-user directory)
+       (map
+        (lambda (repo)
+          (status-git-repo repo remote branch))
+        (find-git-repos directory))
+       (farewell-the-user))
+
+
+
+File: pagr.info,  Node: Narration,  Prev: Status All Git Repos (sagr),  Up: Library
+
+4.1.9 Narration
 ---------------
 
 These functions all have the same purpose: Communicate to the user what
@@ -1984,7 +2040,7 @@ is happening.
           Displays a message to the user.
           "
 
-            (display (string-append "Beginning push of all git repos in " directory " now!\n")))
+            (display (string-append "Beginning work on all git repos in " directory " now!\n")))
 
   2. Pushing
 
@@ -2006,7 +2062,28 @@ is happening.
 
             (display (string-append "Pushing " directory " now!\n")))
 
-  3. Farewell
+  3. Statusing
+
+          (define (narrate-directory-status directory)
+            "Tell the user what directory checking, so errors can be caught.
+
+          Arguments
+          =========
+          DIRECTORY <string>: The directory being checked.
+
+          Returns
+          =======
+          <undefined>
+
+          Side Effects
+          ============
+          Displays a message to the user.
+          "
+
+            (display (string-append "Checking " directory " now!\n")))
+
+
+  4. Farewell
 
           (define (farewell-the-user)
             "Say goodbye to the user.
@@ -2023,7 +2100,7 @@ is happening.
           ============
           Displays a message to the user."
 
-            (display "All directories pushed!\n"))
+            (display "All directories processed!\n"))
 
 
 File: pagr.info,  Node: Executable,  Next: Legacy,  Prev: Library,  Up: Code
@@ -2034,11 +2111,12 @@ File: pagr.info,  Node: Executable,  Next: Legacy,  Prev: Library,  Up: Code
 * Menu:
 
 * Preamble: Preamble (1).
+* Option Spec::
 * Usage::
 * Main Function::
 
 
-File: pagr.info,  Node: Preamble (1),  Next: Usage,  Up: Executable
+File: pagr.info,  Node: Preamble (1),  Next: Option Spec,  Up: Executable
 
 4.2.1 Preamble
 --------------
@@ -2048,19 +2126,37 @@ This is the top of that file.
      #!/usr/bin/env -S guile -e main -s
      -e main -s
      !#
-     (use-modules (cdr255 pagr))
+     (use-modules (cdr255 pagr)
+                  (ice-9 getopt-long)   ; For CLI Options and Flags.
+                  (ice-9 ftw)           ; For Filesystem Access.
+                  (ice-9 textual-ports) ; For Writing to Files.
+                  (srfi srfi-19))       ; For Dates.
 
 
-File: pagr.info,  Node: Usage,  Next: Main Function,  Prev: Preamble (1),  Up: Executable
+File: pagr.info,  Node: Option Spec,  Next: Usage,  Prev: Preamble (1),  Up: Executable
 
-4.2.2 Usage
+4.2.2 Option Spec
+-----------------
+
+     (define option-spec
+       '((version (single-char #\v) (value #false))
+         (push (single-char #\p) (value #false))
+         (status (single-char #\s) (value #false))
+         (help (single-char #\h) (value #false))))
+
+
+File: pagr.info,  Node: Usage,  Next: Main Function,  Prev: Option Spec,  Up: Executable
+
+4.2.3 Usage
 -----------
 
 Rather than clutter the main function with the usage message, let’s
 define it here for future use.
 
      (define my-usage-message (string-append
-                               "Usage: pagr.scm DIRECTORY REMOTE\n\n"
+                               "Usage: pagr.scm [-vh] [-s] [-p] DIRECTORY REMOTE BRANCH\n\n"
+
+                               "pagr v0.0.2\n\n"
 
                                "Explanation of Arguments:\n\n"
 
@@ -2068,7 +2164,18 @@ define it here for future use.
                                "             repositories reside.\n"
                                "  REMOTE:    The name of the remote branch to which\n"
                                "             all git repositories found should be\n"
-                               "             pushed.\n\n"
+                               "             pushed.\n"
+                               "  BRANCH:    The name of the branch we're dealing with.\n"
+                               "             Defaults to \"trunk\" if missing.\n\n"
+
+                               "Explanation of Options:\n\n"
+
+                               "  [-v || --version]: Display version and help info.\n"
+                               "  [-h || --help]:    Display this help info.\n"
+                               "  [-s || --status]:  Get the status of all of the git\n"
+                               "                     repositories that are found.\n"
+                               "  [-p || --push]:    Push all the git repositories\n"
+                               "                     that are found.\n\n"
 
                                "This program is entirely written in GNU Guile Scheme,\n"
                                "and You are welcome to change it how You see fit.\n\n"
@@ -2079,17 +2186,38 @@ define it here for future use.
 
 File: pagr.info,  Node: Main Function,  Prev: Usage,  Up: Executable
 
-4.2.3 Main Function
+4.2.4 Main Function
 -------------------
 
      (define (main args)
-       (let ((arguments (cdr args)))
-         (cond ((not (equal? (length arguments) 2))
+       (let* ((options (getopt-long args option-spec))
+             (version (option-ref options 'version #false))
+             (help (option-ref options 'help #false))
+             (non-options (option-ref options '() #false))
+             (push (option-ref options 'push #false))
+             (status (option-ref options 'status #false))
+             (option-count (length options)))
+         (cond ((or version help)
                 (display my-usage-message))
-               ((not (file-exists? (car arguments)))
-                (format #t "ERROR: ~a does not exist!~%" (car arguments)))
+               ((not (and (> option-count 1) (< option-count 4)))
+                (format
+                 #t
+                 (string-append "ERROR: Please supply a DIRECTORY and REPOSITORY "
+                                "(and Optionally a BRANCH).~%"
+                                "You supplied the following: ~a ~%")
+                 non-options))
+               ((not (file-exists? (car non-options)))
+                (format #t "ERROR: Directory ~a does not exist!~%" (car arguments)))
+               ((and (not push) status)
+                (if (= option-count 2)
+                    (status-all-git-repos (car non-options) (cdr non-options))
+                    (status-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+               ((and (not status) push)
+                (if (= option-count 2)
+                    (push-all-git-repos (car non-options) (cdr non-options))
+                    (push-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
                (else
-                (push-all-git-repos (car arguments) (cadr arguments))))))
+                (display my-usage-message)))))
 
 
 File: pagr.info,  Node: Legacy,  Prev: Executable,  Up: Code
@@ -2265,59 +2393,62 @@ File: pagr.info,  Node: Main,  Prev: Basic Tests,  Up: Main Tests
 
 Tag Table:
 Node: Top188
-Node: Concept1270
-Node: Overview1698
-Node: Generic Project Files1884
-Node: README2411
-Node: LICENSE3605
-Node: Changelog41602
-Node: AUTHORS42549
-Node: gitignore43186
-Node: Language Project Files50924
-Node: Bootstrap51724
-Node: Configure52089
-Node: Initialize52390
-Node: Configure Options52926
-Node: Guile Options53569
-Node: Wrap Up54406
-Node: Make54713
-Node: Guile55017
-Node: Sources55250
-Node: Additional Dist Files55505
-Node: Binaries56143
-Node: Tests56508
-Node: Cleaning Targets56701
-Node: Actual Work58067
-Ref: Binaries (1)58200
-Ref: Libraries58926
-Ref: Tests (1)59263
-Node: Cleanup59546
-Node: guileam59641
-Node: pre-inst-envin60658
-Node: Code61257
-Node: Library61456
-Node: Preamble61905
-Node: Get the Items in a Directory62136
-Node: Is this a Git Repo?62980
-Node: Gather Git Repos63684
-Node: Push a Git Repo64443
-Node: Push All Git Repos (pagr)65476
-Node: Narration66342
-Ref: Greeting66552
-Ref: Pushing67020
-Ref: Farewell67501
-Node: Executable67847
-Node: Preamble (1)68022
-Node: Usage68253
-Node: Main Function69378
-Node: Legacy69873
-Node: Library (1)70144
-Node: Executable (1)71996
-Node: Tests (2)73378
-Node: Main Tests73799
-Node: Preamble (2)74057
-Node: Basic Tests74480
-Node: Main74925
+Node: Concept1325
+Node: Overview1753
+Node: Generic Project Files1939
+Node: README2466
+Node: LICENSE3660
+Node: Changelog41657
+Node: AUTHORS42604
+Node: gitignore43241
+Node: Language Project Files50979
+Node: Bootstrap51779
+Node: Configure52144
+Node: Initialize52445
+Node: Configure Options52981
+Node: Guile Options53624
+Node: Wrap Up54461
+Node: Make54768
+Node: Guile55060
+Node: Sources55293
+Node: Additional Dist Files55548
+Node: Binaries56186
+Node: Tests56551
+Node: Cleaning Targets56744
+Node: Actual Work58110
+Ref: Binaries (1)58227
+Ref: Libraries58953
+Ref: Tests (1)59290
+Node: guileam59573
+Node: pre-inst-envin60590
+Node: Code61189
+Node: Library61388
+Node: Preamble61888
+Node: Get the Items in a Directory62177
+Node: Is this a Git Repo?63021
+Node: Gather Git Repos63725
+Node: Push a Git Repo64484
+Node: Push All Git Repos (pagr)65517
+Node: Status of Repo66388
+Node: Status All Git Repos (sagr)67281
+Node: Narration68126
+Ref: Greeting68338
+Ref: Pushing68806
+Ref: Statusing69287
+Ref: Farewell69769
+Node: Executable70118
+Node: Preamble (1)70309
+Node: Option Spec70796
+Node: Usage71153
+Node: Main Function73087
+Node: Legacy74768
+Node: Library (1)75039
+Node: Executable (1)76891
+Node: Tests (2)78273
+Node: Main Tests78694
+Node: Preamble (2)78952
+Node: Basic Tests79375
+Node: Main79820
 
 End Tag Table
 

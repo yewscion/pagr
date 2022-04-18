@@ -1,4 +1,4 @@
-% Created 2022-04-04 Mon 17:41
+% Created 2022-04-18 Mon 17:40
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -29,7 +29,7 @@
 \tableofcontents
 
 \section{Concept}
-\label{sec:org9610f76}
+\label{sec:org6bd776c}
 This is a literate programming file made to support the pagr
 project.
 
@@ -38,19 +38,19 @@ pagr is. In particular, the overview should walk through the
 program flow as much as possible, to ensure clarity of thought before coding
 begins.
 \subsection{Overview}
-\label{sec:org75aae72}
+\label{sec:org1dfd2ec}
 This space intentionally left blank. Please fill it in with more details before
 You actually start coding.
 
 \section{Generic Project Files}
-\label{sec:orgc4aadff}
+\label{sec:org9d77092}
 These files exist in every repository, or should, anyway. As this is a literate
 programming file, however, they are also included here. While they can mostly
 stand for themselves, I will add a sentence or two about each, as well as any
 deviations from the norm for this specific repo.
 
 \subsection{README}
-\label{sec:orgf109d5e}
+\label{sec:org9e0a8aa}
 This is the all-important gateway into the repository. I follow \href{https://www.makeareadme.com/}{Make a README}'s
 specification in all of my projects, as I think it is important to standardize
 such an outward-facing part of the documentation.
@@ -99,7 +99,7 @@ documentation.
 \end{verbatim}
 
 \subsection{LICENSE}
-\label{sec:org06b7db8}
+\label{sec:orgea2ffcf}
 I am a huge supporter of \href{https://en.wikipedia.org/wiki/Free\_software}{Free Software}, and as such generally use licenses to
 support that stance.
 
@@ -777,7 +777,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 \end{verbatim}
 
 \subsection{Changelog}
-\label{sec:org1c6bc0d}
+\label{sec:org9e2deaf}
 All updates to this repository should be logged here. I follow \href{https://keepachangelog.com/}{Keep a
 Changelog}'s recommendations here, because again, standardization is important
 for outward-facing documentation.
@@ -805,7 +805,7 @@ and this projectadheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 \end{verbatim}
 
 \subsection{AUTHORS}
-\label{sec:org572e103}
+\label{sec:orgd1849c8}
 If You contribute to this repo, Your information belongs in this file. I will
 attempt to ensure this, but if You'd like to simply include Your information
 here in any pull requests, I am more than happy to accept that.
@@ -819,7 +819,7 @@ Christopher Rodriguez <yewscion@gmail.com>
 \end{verbatim}
 
 \subsection{.gitignore}
-\label{sec:org3ce2d18}
+\label{sec:org599d000}
 This is an important file for any git repository. I generate mine using
 \href{https://www.toptal.com/developers/gitignore}{gitignore.io} right now, and add to it as needed during work on the project.
 
@@ -1301,7 +1301,7 @@ TSWLatexianTemp*
 \end{verbatim}
 
 \section{Language Project Files}
-\label{sec:org89a0e1b}
+\label{sec:orga439ebd}
 These files vary based on the programming languages used in a
 project. Otherwise, basically the same as above: Files that need to exist for
 the project, but don't include code outside of defining the project in some
@@ -1314,7 +1314,7 @@ Instead, I've opted to use \href{https://www.gnu.org/software/automake/faq/autot
 setup.
 
 \subsection{Bootstrap}
-\label{sec:org3040b24}
+\label{sec:orge7749ce}
 First, we need to bootstrap our setup using \texttt{autoreconf}. I use a script to
 automate this process, but it is really just a single command that needs to be
 run.
@@ -1325,12 +1325,12 @@ autoreconf --verbose --install --force;
 \end{verbatim}
 
 \subsection{Configure}
-\label{sec:org02a7e57}
+\label{sec:orgb16a723}
 That said, it's not much good if there is no \texttt{configure.ac} file for it to use
 as a guide.
 
 \subsubsection{Initialize}
-\label{sec:org63e0655}
+\label{sec:org6215320}
 
 We'll initialize autotools with the following: the name of our project, the
 current version, a contact email for bug reports, an expected tarball name, and
@@ -1346,7 +1346,7 @@ AC_INIT([pagr],
 \end{verbatim}
 
 \subsubsection{Configure Options}
-\label{sec:org72e0f26}
+\label{sec:org321afe1}
 Next, we need to set some \texttt{./configure} specific variables.
 
 \texttt{AC\_CONFIG\_SRCDIR}: This is a file we expect to be in the directory that
@@ -1364,7 +1364,7 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 \end{verbatim}
 
 \subsubsection{Guile Options}
-\label{sec:org6c86471}
+\label{sec:org3b248ea}
 Now we'll set up Guile, in the same way as above.
 
 \texttt{GUILE\_PKG}: This specifies the version of Guile we are looking for with
@@ -1388,7 +1388,7 @@ GUILE_SITE_DIR
 \end{verbatim}
 
 \subsubsection{Wrap Up}
-\label{sec:org2bd2fe6}
+\label{sec:orgb7a4237}
 Specify the files that need to be processed, and process them. Commit with
 \texttt{AC\_OUTPUT}.
 
@@ -1399,11 +1399,11 @@ AC_OUTPUT
 \end{verbatim}
 
 \subsection{Make}
-\label{sec:org40e5684}
+\label{sec:org1c55d88}
 Now we can move on to configuring how the project is made.
 
 \subsubsection{Guile}
-\label{sec:org931a368}
+\label{sec:orga6786a1}
 There are some Guile-specific things that made sense to keep in their own file,
 and so we'll just include that file here.
 \begin{verbatim}
@@ -1412,7 +1412,7 @@ include guile.am
 \end{verbatim}
 
 \subsubsection{Sources}
-\label{sec:org29cdb1e}
+\label{sec:org5f10efb}
 These are the source files that will be installed as libraries.
 
 \begin{verbatim}
@@ -1422,7 +1422,7 @@ cdr255/pagr.scm
 \end{verbatim}
 
 \subsubsection{Additional Dist Files}
-\label{sec:orgc6fc010}
+\label{sec:org9a08586}
 These files are the files that should be installed alongside the rest of the
 program, for documentation purposes. This includes the unaltered binary scripts,
 the \texttt{bootstrap} file and \texttt{pre-inst-env.in} files, and the \texttt{README.md} should be
@@ -1438,7 +1438,7 @@ bin/pagr.scm
 \end{verbatim}
 
 \subsubsection{Binaries}
-\label{sec:orgda98686}
+\label{sec:orge71ffbf}
 There aren't really guile binaries, but there are scripts I use as though they
 were binaries, the ones that actually use the functions I write that are
 installed as libraries.
@@ -1450,14 +1450,14 @@ pagr
 \end{verbatim}
 
 \subsubsection{Tests}
-\label{sec:org43d33dc}
+\label{sec:orgb60b2f2}
 We can specify the tests we want run with \texttt{make test}.
 
 \begin{verbatim}
 TESTS=run-tests
 \end{verbatim}
 \subsubsection{Cleaning Targets}
-\label{sec:orgb74e40b}
+\label{sec:orgd52e549}
 We also have to specify how make should clean up. Here is the set of heuristics
 that is often quoted for what should be removed where:
 
@@ -1493,11 +1493,11 @@ basic-tests.log
 
 \end{verbatim}
 \subsubsection{Actual Work}
-\label{sec:orgb6db9fa}
+\label{sec:orga047b94}
 
 \begin{enumerate}
 \item Binaries
-\label{sec:org5ba7296}
+\label{sec:orgcf32aa8}
 We should replace the shebang that calls \texttt{/usr/bin/env} with the actual guile
 path on the target machine. That's the main process here, which is mostly
 accomplished with the following call to \texttt{sed}:
@@ -1518,7 +1518,7 @@ pagr: src/exe.scm
 \end{verbatim}
 
 \item Libraries
-\label{sec:orgf2cc3ea}
+\label{sec:org4609c32}
 The libraries contain the bulk of the code that is part of this project. We'll
 do the same as above, include the main library as an example of the form.
 
@@ -1530,7 +1530,7 @@ cdr255/pagr.scm:
 \end{verbatim}
 
 \item Tests
-\label{sec:org7f03c60}
+\label{sec:orgcf3eef6}
 \begin{verbatim}
 run-tests:
 		sed -e 's,#!\/usr\/bin\/env -S guile -e main -s,\#!$(GUILE) \\,g' \
@@ -1540,11 +1540,8 @@ run-tests:
 	guile -C ./ ./run-tests
 \end{verbatim}
 \end{enumerate}
-\subsubsection{Cleanup}
-\label{sec:orgc8e8ba3}
-
 \subsection{guile.am}
-\label{sec:orgc8caee5}
+\label{sec:orgf6ad58c}
 
 \begin{verbatim}
 moddir = $(datadir)/guile/site/$(GUILE_EFFECTIVE_VERSION)
@@ -1571,7 +1568,7 @@ SUFFIXES = .scm .go
 	compile $(GUILE_WARNINGS) -o "$@" "$<"
 \end{verbatim}
 \subsection{pre-inst-env.in}
-\label{sec:org9858861}
+\label{sec:orga6e981a}
 \begin{verbatim}
 #!/bin/sh
 
@@ -1589,27 +1586,28 @@ exec "$@"
 \end{verbatim}
 
 \section{Code}
-\label{sec:orgf123b94}
+\label{sec:orge0de477}
 Finally, we've gotten to the actual code!
 
 \subsection{Library}
-\label{sec:org8b5dcaa}
+\label{sec:org143c89b}
 Well, almost, anyway. First, let's declare the top of each file as defining a
 specific module, and add any top-of-the-file comments. I refer to these blocks
 as the \emph{preamble} of each file.
 
 \subsubsection{Preamble}
-\label{sec:orgf796110}
+\label{sec:org9096e29}
 This is the top of that file.
 
 \begin{verbatim}
-(define-module (pagr)
+(define-module (cdr255 pagr)
   :use-module (ice-9 ftw)
-  :export (pagr))
+  :export (push-all-git-repos
+           status-all-git-repos))
 \end{verbatim}
 
 \subsubsection{Get the Items in a Directory}
-\label{sec:org50faf0c}
+\label{sec:org89e48bd}
 We'll start with some utility functions. First, a function that will let us
 gather all of the files in a specified directory.
 
@@ -1638,7 +1636,7 @@ Depends on the directory's state.
 \end{verbatim}
 
 \subsubsection{Is this a Git Repo?}
-\label{sec:org66c8aed}
+\label{sec:org2d66fde}
 We only care about git repos right now, so if there's no \texttt{/.git/} we need to
 ignore the directory.
 
@@ -1663,7 +1661,7 @@ Depends on Directory contents.
 \end{verbatim}
 
 \subsubsection{Gather Git Repos}
-\label{sec:org472ceee}
+\label{sec:org4cf259f}
 Now we build a list of all git repos (that is, folders with a \texttt{.git/} folder
 inside of them) inside of a specified directory.
 
@@ -1687,7 +1685,7 @@ Depends on the Directory's contents.
 \end{verbatim}
 
 \subsubsection{Push a Git Repo}
-\label{sec:org80edf88}
+\label{sec:org278b74d}
 We'll start by defining how to push a single repository. This part relies on
 \texttt{git} being in the path.
 
@@ -1715,7 +1713,7 @@ Relies on outside binary (git)."
 \end{verbatim}
 
 \subsubsection{Push All Git Repos (pagr)}
-\label{sec:org6b42428}
+\label{sec:orgad9846c}
 This is the reason we are here!
 
 \begin{verbatim}
@@ -1746,14 +1744,68 @@ Entirely based on side effects.
 
 \end{verbatim}
 
+\subsubsection{Status of Repo}
+\label{sec:orgcac00c8}
+\begin{verbatim}
+(define* (status-git-repo repository)
+  "Call system git to check the status of a repository.
+
+Arguments
+=========
+REPOSITORY <string>: The name of the directory the repository lives in locally.
+REMOTE <string>: A remote expected to be tracked in the repo (IGNORED).
+BRANCH <string>: A branch expected to be live in the repo (IGNORED).
+
+Returns
+=======
+A <string> representing the git command's exit status.
+
+Side Effects
+============
+Relies on outside binary (git)."
+
+  (narrate-directory-status repository)
+  (display (string-append "git -C " repository " status -sbM \n"))
+  (system (string-append "git -C " repository " status -sbM \n")))
+\end{verbatim}
+
+\subsubsection{Status All Git Repos (sagr)}
+\label{sec:org856acac}
+\begin{verbatim}
+(define* (status-all-git-repos directory remote #:optional (branch "trunk"))
+  "Check all git repositories inside of a directory for their current status.
+
+Arguments
+=========
+DIRECTORY <string>: The directory to look for repos inside.
+REMOTE <string>: A remote to push the repos to.
+BRANCH <string>: Which branch to push.
+
+Returns
+=======
+<undefined>
+
+Side Effects
+============
+Entirely based on side effects.
+"
+  (greet-the-user directory)
+  (map
+   (lambda (repo)
+     (status-git-repo repo remote branch))
+   (find-git-repos directory))
+  (farewell-the-user))
+
+\end{verbatim}
+
 \subsubsection{Narration}
-\label{sec:org64a1a98}
+\label{sec:org07c34bd}
 These functions all have the same purpose: Communicate to the user what is
 happening.
 
 \begin{enumerate}
 \item Greeting
-\label{sec:orgd0fbf2b}
+\label{sec:orge02f7eb}
 
 \begin{verbatim}
 (define (greet-the-user directory)
@@ -1772,11 +1824,11 @@ Side Effects
 Displays a message to the user.
 "
 
-  (display (string-append "Beginning push of all git repos in " directory " now!\n")))
+  (display (string-append "Beginning work on all git repos in " directory " now!\n")))
 \end{verbatim}
 
 \item Pushing
-\label{sec:orgd690aeb}
+\label{sec:org53f983e}
 \begin{verbatim}
 (define (narrate-directory-push directory)
   "Tell the user what directory we are pushing, so errors can be caught.
@@ -1797,8 +1849,31 @@ Displays a message to the user.
   (display (string-append "Pushing " directory " now!\n")))
 \end{verbatim}
 
+\item Statusing
+\label{sec:orgad30621}
+\begin{verbatim}
+(define (narrate-directory-status directory)
+  "Tell the user what directory checking, so errors can be caught.
+
+Arguments
+=========
+DIRECTORY <string>: The directory being checked.
+
+Returns
+=======
+<undefined>
+
+Side Effects
+============
+Displays a message to the user.
+"
+
+  (display (string-append "Checking " directory " now!\n")))
+
+\end{verbatim}
+
 \item Farewell
-\label{sec:org537e4a6}
+\label{sec:orgdd474ca}
 \begin{verbatim}
 (define (farewell-the-user)
   "Say goodbye to the user.
@@ -1815,31 +1890,47 @@ Side Effects
 ============
 Displays a message to the user."
 
-  (display "All directories pushed!\n"))
+  (display "All directories processed!\n"))
 \end{verbatim}
 \end{enumerate}
 
 \subsection{Executable}
-\label{sec:orgbb69a66}
+\label{sec:org0fcf478}
 \subsubsection{Preamble}
-\label{sec:org6457814}
+\label{sec:org81f0825}
 This is the top of that file.
 
 \begin{verbatim}
 #!/usr/bin/env -S guile -e main -s
 -e main -s
 !#
-(use-modules (cdr255 pagr))
+(use-modules (cdr255 pagr)
+             (ice-9 getopt-long)   ; For CLI Options and Flags.
+             (ice-9 ftw)           ; For Filesystem Access.
+             (ice-9 textual-ports) ; For Writing to Files.
+             (srfi srfi-19))       ; For Dates.
+\end{verbatim}
+
+\subsubsection{Option Spec}
+\label{sec:org6a31839}
+\begin{verbatim}
+(define option-spec
+  '((version (single-char #\v) (value #false))
+    (push (single-char #\p) (value #false))
+    (status (single-char #\s) (value #false))
+    (help (single-char #\h) (value #false))))
 \end{verbatim}
 
 \subsubsection{Usage}
-\label{sec:orgf65042e}
+\label{sec:orgadcee8f}
 Rather than clutter the main function with the usage message, let's define it
 here for future use.
 
 \begin{verbatim}
 (define my-usage-message (string-append
-                          "Usage: pagr.scm DIRECTORY REMOTE\n\n"
+                          "Usage: pagr.scm [-vh] [-s] [-p] DIRECTORY REMOTE BRANCH\n\n"
+
+                          "pagr v0.0.2\n\n"
                           
                           "Explanation of Arguments:\n\n"
                           
@@ -1847,7 +1938,18 @@ here for future use.
                           "             repositories reside.\n"
                           "  REMOTE:    The name of the remote branch to which\n"
                           "             all git repositories found should be\n"
-                          "             pushed.\n\n"
+                          "             pushed.\n"
+                          "  BRANCH:    The name of the branch we're dealing with.\n"
+                          "             Defaults to \"trunk\" if missing.\n\n"
+
+                          "Explanation of Options:\n\n"
+
+                          "  [-v || --version]: Display version and help info.\n"
+                          "  [-h || --help]:    Display this help info.\n"
+                          "  [-s || --status]:  Get the status of all of the git\n"
+                          "                     repositories that are found.\n"
+                          "  [-p || --push]:    Push all the git repositories\n"
+                          "                     that are found.\n\n"
 
                           "This program is entirely written in GNU Guile Scheme,\n"
                           "and You are welcome to change it how You see fit.\n\n"
@@ -1857,26 +1959,47 @@ here for future use.
 \end{verbatim}
 
 \subsubsection{Main Function}
-\label{sec:org357bf87}
+\label{sec:org894e285}
 
 \begin{verbatim}
 (define (main args)
-  (let ((arguments (cdr args)))
-    (cond ((not (equal? (length arguments) 2))
+  (let* ((options (getopt-long args option-spec))
+        (version (option-ref options 'version #false))
+        (help (option-ref options 'help #false))
+        (non-options (option-ref options '() #false))
+        (push (option-ref options 'push #false))
+        (status (option-ref options 'status #false))
+        (option-count (length options)))
+    (cond ((or version help)
            (display my-usage-message))
-          ((not (file-exists? (car arguments)))
-           (format #t "ERROR: ~a does not exist!~%" (car arguments)))
+          ((not (and (> option-count 1) (< option-count 4)))
+           (format
+            #t
+            (string-append "ERROR: Please supply a DIRECTORY and REPOSITORY "
+                           "(and Optionally a BRANCH).~%"
+                           "You supplied the following: ~a ~%")
+            non-options))
+          ((not (file-exists? (car non-options)))
+           (format #t "ERROR: Directory ~a does not exist!~%" (car arguments)))
+          ((and (not push) status)
+           (if (= option-count 2)
+               (status-all-git-repos (car non-options) (cdr non-options))
+               (status-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+          ((and (not status) push)
+           (if (= option-count 2)
+               (push-all-git-repos (car non-options) (cdr non-options))
+               (push-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
           (else
-           (push-all-git-repos (car arguments) (cadr arguments))))))
+           (display my-usage-message)))))
 \end{verbatim}
 
 \subsection{Legacy}
-\label{sec:org9293411}
+\label{sec:org1336198}
 This project actually grew out of my scripts repository, and here is the
 script's original code for historical sake.
 
 \subsubsection{Library}
-\label{sec:org59cda1d}
+\label{sec:org91bd70c}
 \begin{verbatim}
 (define-module (push-all-git-repos)
   :use-module (ice-9 ftw)
@@ -1923,7 +2046,7 @@ script's original code for historical sake.
 \end{verbatim}
 
 \subsubsection{Executable}
-\label{sec:org611f7a0}
+\label{sec:org3b2fdc1}
 \begin{verbatim}
 #!/usr/bin/env -S guile -e main -s
 -e main -s
@@ -1955,18 +2078,18 @@ script's original code for historical sake.
 \end{verbatim}
 
 \section{Tests}
-\label{sec:org302f2ac}
+\label{sec:org614c5e9}
 It's important to me to use \href{https://en.wikipedia.org/wiki/Unit\_testing}{Unit Testing} throughout my development process,
 oftentimes before I actually implement a specific feature. I guess I subscribe
 to the notion of \href{https://en.wikipedia.org/wiki/Test-driven\_development}{TDD}, whether through habit or preference.
 
 \subsection{Main Tests}
-\label{sec:orge23ab6d}
+\label{sec:orgee6af68}
 Anyway, all related files will live under \texttt{test/}, and the main file should be
 called \texttt{maintests.scm}.
 
 \subsubsection{Preamble}
-\label{sec:org25151aa}
+\label{sec:orga1882a8}
 We require the files defined above, as well as \href{https://srfi.schemers.org/srfi-64/srfi-64.html}{SRFI-64} for a testing
 framework.
 
@@ -1981,7 +2104,7 @@ framework.
 Then we move on to the actual tests.
 
 \subsubsection{Basic Tests}
-\label{sec:org4511443}
+\label{sec:org77b04f1}
 
 \begin{verbatim}
 (define (basic-tests)
@@ -1994,7 +2117,7 @@ Then we move on to the actual tests.
 \end{verbatim}
 
 \subsubsection{Main}
-\label{sec:org4d30251}
+\label{sec:orgd9f2256}
 
 \begin{verbatim}
 (define (main args)

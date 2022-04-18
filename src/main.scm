@@ -1,6 +1,7 @@
 (define-module (cdr255 pagr)
   :use-module (ice-9 ftw)
-  :export (push-all-git-repos))
+  :export (push-all-git-repos
+           status-all-git-repos))
 
 (define (directory->list directory)
   "Build a list of files in a specified directory.
@@ -105,6 +106,51 @@ Entirely based on side effects.
    (find-git-repos directory))
   (farewell-the-user))
 
+(define* (status-git-repo repository remote branch)
+  "Call system git to check the status of a repository.
+
+Arguments
+=========
+REPOSITORY <string>: The name of the directory the repository lives in locally.
+REMOTE <string>: A remote expected to be tracked in the repo (IGNORED).
+BRANCH <string>: A branch expected to be live in the repo (IGNORED).
+
+Returns
+=======
+A <string> representing the git command's exit status.
+
+Side Effects
+============
+Relies on outside binary (git)."
+
+  (narrate-directory-status repository)
+  (display (string-append "git -C " repository " status -sbM \n"))
+  (system (string-append "git -C " repository " status -sbM \n")))
+
+(define* (status-all-git-repos directory remote #:optional (branch "trunk"))
+  "Check all git repositories inside of a directory for their current status.
+
+Arguments
+=========
+DIRECTORY <string>: The directory to look for repos inside.
+REMOTE <string>: A remote to push the repos to.
+BRANCH <string>: Which branch to push.
+
+Returns
+=======
+<undefined>
+
+Side Effects
+============
+Entirely based on side effects.
+"
+  (greet-the-user directory)
+  (map
+   (lambda (repo)
+     (status-git-repo repo remote branch))
+   (find-git-repos directory))
+  (farewell-the-user))
+
 (define (greet-the-user directory)
   "Tell the user what we're doing.
 
@@ -121,7 +167,7 @@ Side Effects
 Displays a message to the user.
 "
 
-  (display (string-append "Beginning push of all git repos in " directory " now!\n")))
+  (display (string-append "Beginning work on all git repos in " directory " now!\n")))
 
 (define (narrate-directory-push directory)
   "Tell the user what directory we are pushing, so errors can be caught.
@@ -141,6 +187,24 @@ Displays a message to the user.
 
   (display (string-append "Pushing " directory " now!\n")))
 
+(define (narrate-directory-status directory)
+  "Tell the user what directory checking, so errors can be caught.
+
+Arguments
+=========
+DIRECTORY <string>: The directory being checked.
+
+Returns
+=======
+<undefined>
+
+Side Effects
+============
+Displays a message to the user.
+"
+
+  (display (string-append "Checking " directory " now!\n")))
+
 (define (farewell-the-user)
   "Say goodbye to the user.
 
@@ -156,4 +220,4 @@ Side Effects
 ============
 Displays a message to the user."
 
-  (display "All directories pushed!\n"))
+  (display "All directories processed!\n"))

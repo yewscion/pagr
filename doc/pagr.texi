@@ -71,7 +71,6 @@ Make
 * Tests::
 * Cleaning Targets::
 * Actual Work::
-* Cleanup::
 
 Code
 
@@ -87,11 +86,14 @@ Library
 * Gather Git Repos::
 * Push a Git Repo::
 * Push All Git Repos (pagr)::
+* Status of Repo::
+* Status All Git Repos (sagr)::
 * Narration::
 
 Executable
 
 * Preamble: Preamble (1). 
+* Option Spec::
 * Usage::
 * Main Function::
 
@@ -1538,7 +1540,6 @@ Now we can move on to configuring how the project is made.
 * Tests::
 * Cleaning Targets::
 * Actual Work::
-* Cleanup::
 @end menu
 
 @node Guile
@@ -1698,9 +1699,6 @@ run-tests:
 @end example
 @end enumerate
 
-@node Cleanup
-@subsection Cleanup
-
 @node guileam
 @section guile.am
 
@@ -1773,6 +1771,8 @@ as the @emph{preamble} of each file.
 * Gather Git Repos::
 * Push a Git Repo::
 * Push All Git Repos (pagr)::
+* Status of Repo::
+* Status All Git Repos (sagr)::
 * Narration::
 @end menu
 
@@ -1782,9 +1782,10 @@ as the @emph{preamble} of each file.
 This is the top of that file.
 
 @example
-(define-module (pagr)
+(define-module (cdr255 pagr)
   :use-module (ice-9 ftw)
-  :export (pagr))
+  :export (push-all-git-repos
+           status-all-git-repos))
 @end example
 
 @node Get the Items in a Directory
@@ -1930,6 +1931,62 @@ Entirely based on side effects.
 
 @end example
 
+@node Status of Repo
+@subsection Status of Repo
+
+@example
+(define* (status-git-repo repository)
+  "Call system git to check the status of a repository.
+
+Arguments
+=========
+REPOSITORY <string>: The name of the directory the repository lives in locally.
+REMOTE <string>: A remote expected to be tracked in the repo (IGNORED).
+BRANCH <string>: A branch expected to be live in the repo (IGNORED).
+
+Returns
+=======
+A <string> representing the git command's exit status.
+
+Side Effects
+============
+Relies on outside binary (git)."
+
+  (narrate-directory-status repository)
+  (display (string-append "git -C " repository " status -sbM \n"))
+  (system (string-append "git -C " repository " status -sbM \n")))
+@end example
+
+@node Status All Git Repos (sagr)
+@subsection Status All Git Repos (sagr)
+
+@example
+(define* (status-all-git-repos directory remote #:optional (branch "trunk"))
+  "Check all git repositories inside of a directory for their current status.
+
+Arguments
+=========
+DIRECTORY <string>: The directory to look for repos inside.
+REMOTE <string>: A remote to push the repos to.
+BRANCH <string>: Which branch to push.
+
+Returns
+=======
+<undefined>
+
+Side Effects
+============
+Entirely based on side effects.
+"
+  (greet-the-user directory)
+  (map
+   (lambda (repo)
+     (status-git-repo repo remote branch))
+   (find-git-repos directory))
+  (farewell-the-user))
+
+@end example
+
 @node Narration
 @subsection Narration
 
@@ -1958,7 +2015,7 @@ Side Effects
 Displays a message to the user.
 "
 
-  (display (string-append "Beginning push of all git repos in " directory " now!\n")))
+  (display (string-append "Beginning work on all git repos in " directory " now!\n")))
 @end example
 
 @item
@@ -1986,6 +2043,31 @@ Displays a message to the user.
 @end example
 
 @item
+@anchor{Statusing}Statusing
+
+
+@example
+(define (narrate-directory-status directory)
+  "Tell the user what directory checking, so errors can be caught.
+
+Arguments
+=========
+DIRECTORY <string>: The directory being checked.
+
+Returns
+=======
+<undefined>
+
+Side Effects
+============
+Displays a message to the user.
+"
+
+  (display (string-append "Checking " directory " now!\n")))
+
+@end example
+
+@item
 @anchor{Farewell}Farewell
 
 
@@ -2005,7 +2087,7 @@ Side Effects
 ============
 Displays a message to the user."
 
-  (display "All directories pushed!\n"))
+  (display "All directories processed!\n"))
 @end example
 @end enumerate
 
@@ -2014,6 +2096,7 @@ Displays a message to the user."
 
 @menu
 * Preamble: Preamble (1). 
+* Option Spec::
 * Usage::
 * Main Function::
 @end menu
@@ -2027,7 +2110,22 @@ This is the top of that file.
 #!/usr/bin/env -S guile -e main -s
 -e main -s
 !#
-(use-modules (cdr255 pagr))
+(use-modules (cdr255 pagr)
+             (ice-9 getopt-long)   ; For CLI Options and Flags.
+             (ice-9 ftw)           ; For Filesystem Access.
+             (ice-9 textual-ports) ; For Writing to Files.
+             (srfi srfi-19))       ; For Dates.
+@end example
+
+@node Option Spec
+@subsection Option Spec
+
+@example
+(define option-spec
+  '((version (single-char #\v) (value #false))
+    (push (single-char #\p) (value #false))
+    (status (single-char #\s) (value #false))
+    (help (single-char #\h) (value #false))))
 @end example
 
 @node Usage
@@ -2038,7 +2136,9 @@ here for future use.
 
 @example
 (define my-usage-message (string-append
-                          "Usage: pagr.scm DIRECTORY REMOTE\n\n"
+                          "Usage: pagr.scm [-vh] [-s] [-p] DIRECTORY REMOTE BRANCH\n\n"
+
+                          "pagr v0.0.2\n\n"
                           
                           "Explanation of Arguments:\n\n"
                           
@@ -2046,7 +2146,18 @@ here for future use.
                           "             repositories reside.\n"
                           "  REMOTE:    The name of the remote branch to which\n"
                           "             all git repositories found should be\n"
-                          "             pushed.\n\n"
+                          "             pushed.\n"
+                          "  BRANCH:    The name of the branch we're dealing with.\n"
+                          "             Defaults to \"trunk\" if missing.\n\n"
+
+                          "Explanation of Options:\n\n"
+
+                          "  [-v || --version]: Display version and help info.\n"
+                          "  [-h || --help]:    Display this help info.\n"
+                          "  [-s || --status]:  Get the status of all of the git\n"
+                          "                     repositories that are found.\n"
+                          "  [-p || --push]:    Push all the git repositories\n"
+                          "                     that are found.\n\n"
 
                           "This program is entirely written in GNU Guile Scheme,\n"
                           "and You are welcome to change it how You see fit.\n\n"
@@ -2060,13 +2171,34 @@ here for future use.
 
 @example
 (define (main args)
-  (let ((arguments (cdr args)))
-    (cond ((not (equal? (length arguments) 2))
+  (let* ((options (getopt-long args option-spec))
+        (version (option-ref options 'version #false))
+        (help (option-ref options 'help #false))
+        (non-options (option-ref options '() #false))
+        (push (option-ref options 'push #false))
+        (status (option-ref options 'status #false))
+        (option-count (length options)))
+    (cond ((or version help)
            (display my-usage-message))
-          ((not (file-exists? (car arguments)))
-           (format #t "ERROR: ~a does not exist!~%" (car arguments)))
+          ((not (and (> option-count 1) (< option-count 4)))
+           (format
+            #t
+            (string-append "ERROR: Please supply a DIRECTORY and REPOSITORY "
+                           "(and Optionally a BRANCH).~%"
+                           "You supplied the following: ~a ~%")
+            non-options))
+          ((not (file-exists? (car non-options)))
+           (format #t "ERROR: Directory ~a does not exist!~%" (car arguments)))
+          ((and (not push) status)
+           (if (= option-count 2)
+               (status-all-git-repos (car non-options) (cdr non-options))
+               (status-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+          ((and (not status) push)
+           (if (= option-count 2)
+               (push-all-git-repos (car non-options) (cdr non-options))
+               (push-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
           (else
-           (push-all-git-repos (car arguments) (cadr arguments))))))
+           (display my-usage-message)))))
 @end example
 
 @node Legacy
