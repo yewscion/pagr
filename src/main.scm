@@ -183,7 +183,8 @@ Side Effects
 Displays a message to the user.
 "
 
-  (display (string-append "Beginning work on all git repos in " directory " now!\n")))
+  (display (string-append
+            "Beginning work on all git repos in " directory " now!\n")))
 
 (define (narrate-directory-push directory)
   "Tell the user what directory we are pushing, so errors can be caught.

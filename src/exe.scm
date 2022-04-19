@@ -19,9 +19,9 @@
    "Usage: pagr.scm [-vh] [-s] [-p] DIRECTORY REMOTE [BRANCH]\n\n"
 
    "pagr v0.0.2\n\n"
-   
+
    "Explanation of Arguments:\n\n"
-   
+
    "  DIRECTORY: The directory in which all of the git\n"
    "             repositories reside.\n"
    "  REMOTE:    The name of the remote branch to which\n"
@@ -54,9 +54,13 @@
         (status (option-ref options 'status #false))
         (non-option-count (length non-options))
         (pagr-info (cond ((= non-option-count 2)
-                          (make-pagr-info (car non-options) (cdr non-options) "trunk"))
+                          (make-pagr-info (car non-options)
+                                          (cadr non-options)
+                                          "trunk"))
                          ((= non-option-count 3)
-                          (make-pagr-info (car non-options) (cadr non-options) (cddr non-options)))
+                          (make-pagr-info (car non-options)
+                                          (cadr non-options)
+                                          (caddr non-options)))
                          (else #false))))
     (cond ((or version help)
            (display my-usage-message))
@@ -68,7 +72,8 @@
                            "You supplied the following: ~a ~%")
             non-options))
           ((not (file-exists? (pagr-info-directory pagr-info)))
-           (format #t "ERROR: Directory ~a does not exist!~%" (pagr-info-directory pagr-info)))
+           (format #t "ERROR: Directory ~a does not exist!~%"
+                   (pagr-info-directory pagr-info)))
           ((and (not push) status)
            (status-all-git-repos pagr-info))
           ((and (not status) push)
