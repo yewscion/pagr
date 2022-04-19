@@ -1,7 +1,20 @@
 (define-module (cdr255 pagr)
   :use-module (ice-9 ftw)
+  :use-module (srfi srfi-9)
   :export (push-all-git-repos
-           status-all-git-repos))
+           status-all-git-repos
+           make-pagr-info
+           pagr-info-directory
+           pagr-info-remote
+           pagr-info-branch
+           pagr-info?))
+
+(define-record-type <pagr-info>
+  (make-pagr-info directory remote branch)
+  pagr-info?
+  (directory pagr-info-directory)
+  (remote pagr-info-remote)
+  (branch pagr-info-branch))
 
 (define (directory->list directory)
   "Build a list of files in a specified directory.
@@ -67,7 +80,7 @@ Arguments
 =========
 REPOSITORY <string>: The name of the directory the repository lives in locally.
 REMOTE <string>: The name of the remote to which we are pushing.
-TRUNK <string>: The name of the branch to push. Defaults to \"trunk\".
+BRANCH <string>: The name of the branch to push. Defaults to \"trunk\".
 
 Returns
 =======
@@ -81,14 +94,13 @@ Relies on outside binary (git)."
   (display (string-append "git -C " repository " push " remote " " branch "\n"))
   (system (string-append "git -C " repository " push " remote " " branch)))
 
-(define* (push-all-git-repos directory remote #:optional (branch "trunk"))
+(define* (push-all-git-repos pagr-info)
   "Push all git repositories inside of a directory to a specified remote.
 
 Arguments
 =========
-DIRECTORY <string>: The directory to look for repos inside.
-REMOTE <string>: A remote to push the repos to.
-BRANCH <string>: Which branch to push.
+PAGR-INFO <srfi-9 record>: A structure containing three <string> fields: 
+                           directory, remote, and branch.
 
 Returns
 =======
@@ -98,13 +110,15 @@ Side Effects
 ============
 Entirely based on side effects.
 "
-
-  (greet-the-user directory)
-  (map
-   (lambda (repo)
-     (push-git-repo repo remote branch))
-   (find-git-repos directory))
-  (farewell-the-user))
+  (let ((directory (pagr-info-directory pagr-info))
+        (remote (pagr-info-remote pagr-info))
+        (branch (pagr-info-branch pagr-info)))
+    (greet-the-user directory)
+    (map
+     (lambda (repo)
+       (push-git-repo repo remote branch))
+     (find-git-repos directory))
+    (farewell-the-user)))
 
 (define* (status-git-repo repository remote branch)
   "Call system git to check the status of a repository.
@@ -127,14 +141,13 @@ Relies on outside binary (git)."
   (display (string-append "git -C " repository " status -sbM \n"))
   (system (string-append "git -C " repository " status -sbM \n")))
 
-(define* (status-all-git-repos directory remote #:optional (branch "trunk"))
+(define* (status-all-git-repos pagr-info)
   "Check all git repositories inside of a directory for their current status.
 
 Arguments
 =========
-DIRECTORY <string>: The directory to look for repos inside.
-REMOTE <string>: A remote to push the repos to.
-BRANCH <string>: Which branch to push.
+PAGR-INFO <srfi-9 record>: A structure containing three <string> fields: 
+                           directory, remote, and branch.
 
 Returns
 =======
@@ -144,12 +157,15 @@ Side Effects
 ============
 Entirely based on side effects.
 "
-  (greet-the-user directory)
-  (map
-   (lambda (repo)
-     (status-git-repo repo remote branch))
-   (find-git-repos directory))
-  (farewell-the-user))
+  (let ((directory (pagr-info-directory pagr-info))
+        (remote (pagr-info-remote pagr-info))
+        (branch (pagr-info-branch pagr-info)))
+    (greet-the-user directory)
+    (map
+     (lambda (repo)
+       (status-git-repo repo remote branch))
+     (find-git-repos directory))
+    (farewell-the-user)))
 
 (define (greet-the-user directory)
   "Tell the user what we're doing.

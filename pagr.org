@@ -1382,8 +1382,6 @@ echo "Bootstrapping Autotools...";
 autoreconf --verbose --install --force;
 #+end_src
 
-#+RESULTS:
-
 ** Configure
 :PROPERTIES:
 :header-args: :tangle configure.ac :noweb yes
@@ -1557,8 +1555,6 @@ accomplished with the following call to =sed=:
 	sed -e 's,#!\/usr\/bin\/env -S guile -e main -s,\#!$(GUILE) \\,g'
 #+end_src
 
-#+RESULTS: replace-guile-shebang
-
 The main executable is included here to speed up single-program development, but
 the basic pattern is the same no matter how many executable scripts are in the
 repository.
@@ -1633,8 +1629,6 @@ export PATH
 exec "$@"
 #+end_src
 
-#+RESULTS:
-
 * Code
 Finally, we've gotten to the actual code!
 
@@ -1653,11 +1647,27 @@ This is the top of that file.
 #+begin_src scheme
 (define-module (<<project-ns>> <<project-name>>)
   :use-module (ice-9 ftw)
+  :use-module (srfi srfi-9)
   :export (push-all-git-repos
-           status-all-git-repos))
+           status-all-git-repos
+           make-pagr-info
+           pagr-info-directory
+           pagr-info-remote
+           pagr-info-branch
+           pagr-info?))
 #+end_src
 
-#+RESULTS:
+*** Data Structure
+The information supplied by the user will be stored in a SRFI-9 style record.
+
+#+begin_src scheme
+(define-record-type <pagr-info>
+  (make-pagr-info directory remote branch)
+  pagr-info?
+  (directory pagr-info-directory)
+  (remote pagr-info-remote)
+  (branch pagr-info-branch))
+#+end_src
 
 *** Get the Items in a Directory
 We'll start with some utility functions. First, a function that will let us
@@ -1687,8 +1697,6 @@ Depends on the directory's state.
     (cddr (file-system-tree directory)))))
 #+end_src
 
-#+RESULTS:
-
 *** Is this a Git Repo?
 We only care about git repos right now, so if there's no =/.git/= we need to
 ignore the directory.
@@ -1713,8 +1721,6 @@ Depends on Directory contents.
   (member (string-append directory "/.git") (directory->list directory)))
 #+end_src
 
-#+RESULTS:
-
 *** Gather Git Repos
 Now we build a list of all git repos (that is, folders with a =.git/= folder
 inside of them) inside of a specified directory.
@@ -1738,8 +1744,6 @@ Depends on the Directory's contents.
   (filter repository? (directory->list directory)))
 #+end_src
 
-#+RESULTS:
-
 *** Push a Git Repo
 We'll start by defining how to push a single repository. This part relies on
 =git= being in the path.
@@ -1752,7 +1756,7 @@ Arguments
 =========
 REPOSITORY <string>: The name of the directory the repository lives in locally.
 REMOTE <string>: The name of the remote to which we are pushing.
-TRUNK <string>: The name of the branch to push. Defaults to \"trunk\".
+BRANCH <string>: The name of the branch to push. Defaults to \"trunk\".
 
 Returns
 =======
@@ -1765,22 +1769,20 @@ Relies on outside binary (git)."
   (narrate-directory-push repository)
   (display (string-append "git -C " repository " push " remote " " branch "\n"))
   (system (string-append "git -C " repository " push " remote " " branch)))
-#+end_src
 
-#+RESULTS:
+#+end_src
 
 *** Push All Git Repos (pagr)
 This is the reason we are here!
 
 #+begin_src scheme
-(define* (push-all-git-repos directory remote #:optional (branch "trunk"))
+(define* (push-all-git-repos pagr-info)
   "Push all git repositories inside of a directory to a specified remote.
 
 Arguments
 =========
-DIRECTORY <string>: The directory to look for repos inside.
-REMOTE <string>: A remote to push the repos to.
-BRANCH <string>: Which branch to push.
+PAGR-INFO <srfi-9 record>: A structure containing three <string> fields: 
+                           directory, remote, and branch.
 
 Returns
 =======
@@ -1790,17 +1792,16 @@ Side Effects
 ============
 Entirely based on side effects.
 "
-
-  (greet-the-user directory)
-  (map
-   (lambda (repo)
-     (push-git-repo repo remote branch))
-   (find-git-repos directory))
-  (farewell-the-user))
-
+  (let ((directory (pagr-info-directory pagr-info))
+        (remote (pagr-info-remote pagr-info))
+        (branch (pagr-info-branch pagr-info)))
+    (greet-the-user directory)
+    (map
+     (lambda (repo)
+       (push-git-repo repo remote branch))
+     (find-git-repos directory))
+    (farewell-the-user)))
 #+end_src
-
-#+RESULTS:
 
 *** Status of Repo
 #+begin_src scheme
@@ -1826,18 +1827,15 @@ Relies on outside binary (git)."
   (system (string-append "git -C " repository " status -sbM \n")))
 #+end_src
 
-#+RESULTS:
-
 *** Status All Git Repos (sagr)
 #+begin_src scheme
-(define* (status-all-git-repos directory remote #:optional (branch "trunk"))
+(define* (status-all-git-repos pagr-info)
   "Check all git repositories inside of a directory for their current status.
 
 Arguments
 =========
-DIRECTORY <string>: The directory to look for repos inside.
-REMOTE <string>: A remote to push the repos to.
-BRANCH <string>: Which branch to push.
+PAGR-INFO <srfi-9 record>: A structure containing three <string> fields: 
+                           directory, remote, and branch.
 
 Returns
 =======
@@ -1847,16 +1845,17 @@ Side Effects
 ============
 Entirely based on side effects.
 "
-  (greet-the-user directory)
-  (map
-   (lambda (repo)
-     (status-git-repo repo remote branch))
-   (find-git-repos directory))
-  (farewell-the-user))
+  (let ((directory (pagr-info-directory pagr-info))
+        (remote (pagr-info-remote pagr-info))
+        (branch (pagr-info-branch pagr-info)))
+    (greet-the-user directory)
+    (map
+     (lambda (repo)
+       (status-git-repo repo remote branch))
+     (find-git-repos directory))
+    (farewell-the-user)))
 
 #+end_src
-
-#+RESULTS:
 
 *** Narration
 These functions all have the same purpose: Communicate to the user what is
@@ -1884,8 +1883,6 @@ Displays a message to the user.
   (display (string-append "Beginning work on all git repos in " directory " now!\n")))
 #+end_src
 
-#+RESULTS:
-
 **** Pushing
 #+begin_src scheme
 (define (narrate-directory-push directory)
@@ -1906,8 +1903,6 @@ Displays a message to the user.
 
   (display (string-append "Pushing " directory " now!\n")))
 #+end_src
-
-#+RESULTS:
 
 **** Statusing
 #+begin_src scheme
@@ -1931,8 +1926,6 @@ Displays a message to the user.
 
 #+end_src
 
-#+RESULTS:
-
 **** Farewell
 #+begin_src scheme
 (define (farewell-the-user)
@@ -1953,8 +1946,6 @@ Displays a message to the user."
   (display "All directories processed!\n"))
 #+end_src
 
-#+RESULTS:
-
 ** Executable
 :PROPERTIES:
 :header-args: :tangle src/exe.scm :mkdirp yes
@@ -1970,10 +1961,9 @@ This is the top of that file.
              (ice-9 getopt-long)   ; For CLI Options and Flags.
              (ice-9 ftw)           ; For Filesystem Access.
              (ice-9 textual-ports) ; For Writing to Files.
-             (srfi srfi-19))       ; For Dates.
+             (srfi srfi-19)        ; For Dates.
+             (srfi srfi-9))        ; For Records.
 #+end_src
-
-#+RESULTS:
 
 *** Option Spec
 #+begin_src scheme
@@ -1983,8 +1973,6 @@ This is the top of that file.
     (status (single-char #\s) (value #false))
     (help (single-char #\h) (value #false))))
 #+end_src
-
-#+RESULTS:
 
 *** Usage
 Rather than clutter the main function with the usage message, let's define it
@@ -2023,8 +2011,6 @@ here for future use.
    "Local Online Help: 'info guile'\n"))
 #+end_src
 
-#+RESULTS:
-
 *** Main Function
 
 #+begin_src scheme
@@ -2035,31 +2021,30 @@ here for future use.
         (non-options (option-ref options '() #false))
         (push (option-ref options 'push #false))
         (status (option-ref options 'status #false))
-        (non-option-count (length non-options)))
+        (non-option-count (length non-options))
+        (pagr-info (cond ((= non-option-count 2)
+                          (make-pagr-info (car non-options) (cdr non-options) "trunk"))
+                         ((= non-option-count 3)
+                          (make-pagr-info (car non-options) (cadr non-options) (cddr non-options)))
+                         (else #false))))
     (cond ((or version help)
            (display my-usage-message))
-          ((not (and (> non-option-count 1) (< non-option-count 4)))
+          ((not pagr-info)
            (format
             #t
             (string-append "ERROR: Please supply a DIRECTORY and REPOSITORY "
                            "(and Optionally a BRANCH).~%"
                            "You supplied the following: ~a ~%")
             non-options))
-          ((not (file-exists? (car non-options)))
-           (format #t "ERROR: Directory ~a does not exist!~%" (car non-options)))
+          ((not (file-exists? (pagr-info-directory pagr-info)))
+           (format #t "ERROR: Directory ~a does not exist!~%" (pagr-info-directory pagr-info)))
           ((and (not push) status)
-           (if (= non-option-count 2)
-               (status-all-git-repos (car non-options) (cdr non-options))
-               (status-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+           (status-all-git-repos pagr-info))
           ((and (not status) push)
-           (if (= non-option-count 2)
-               (push-all-git-repos (car non-options) (cdr non-options))
-               (push-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+           (push-all-git-repos pagr-info))
           (else
            (display my-usage-message)))))
 #+end_src
-
-#+RESULTS:
 
 ** Legacy
 This project actually grew out of my scripts repository, and here is the
@@ -2111,9 +2096,6 @@ script's original code for historical sake.
   (farewell-the-user))
 #+end_src
 
-#+RESULTS:
-: Geiser Interpreter produced no output
-
 *** Executable
 #+begin_src scheme
 #!/usr/bin/env -S guile -e main -s
@@ -2145,9 +2127,6 @@ script's original code for historical sake.
 
 #+end_src
 
-#+RESULTS:
-: Geiser Interpreter produced no output
-
 * Tests
 It's important to me to use [[https://en.wikipedia.org/wiki/Unit_testing][Unit Testing]] throughout my development process,
 oftentimes before I actually implement a specific feature. I guess I subscribe
@@ -2172,8 +2151,6 @@ framework.
 (load "<<project-name>>.scm")
 #+end_src
 
-#+RESULTS:
-
 Then we move on to the actual tests.
 
 *** Basic Tests
@@ -2188,9 +2165,6 @@ Then we move on to the actual tests.
   (test-end "basic-tests"))
 #+end_src
 
-#+RESULTS:
-: Geiser Interpreter produced no output
-
 *** Main
 
 #+begin_src scheme :results output
@@ -2198,15 +2172,10 @@ Then we move on to the actual tests.
   (basic-tests))
 #+end_src
 
-#+RESULTS:
-: Geiser Interpreter produced no output
-
 **** Run main in babel                                                 :nope:
 #+begin_src scheme
 (display (main #f))
 #+end_src
-
-#+RESULTS:
 
 * Generate Docs                                                    :noexport:
 ** Export Docs

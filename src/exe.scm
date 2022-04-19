@@ -5,7 +5,8 @@
              (ice-9 getopt-long)   ; For CLI Options and Flags.
              (ice-9 ftw)           ; For Filesystem Access.
              (ice-9 textual-ports) ; For Writing to Files.
-             (srfi srfi-19))       ; For Dates.
+             (srfi srfi-19)        ; For Dates.
+             (srfi srfi-9))        ; For Records.
 
 (define option-spec
   '((version (single-char #\v) (value #false))
@@ -51,25 +52,26 @@
         (non-options (option-ref options '() #false))
         (push (option-ref options 'push #false))
         (status (option-ref options 'status #false))
-        (non-option-count (length non-options)))
+        (non-option-count (length non-options))
+        (pagr-info (cond ((= non-option-count 2)
+                          (make-pagr-info (car non-options) (cdr non-options) "trunk"))
+                         ((= non-option-count 3)
+                          (make-pagr-info (car non-options) (cadr non-options) (cddr non-options)))
+                         (else #false))))
     (cond ((or version help)
            (display my-usage-message))
-          ((not (and (> non-option-count 1) (< non-option-count 4)))
+          ((not pagr-info)
            (format
             #t
             (string-append "ERROR: Please supply a DIRECTORY and REPOSITORY "
                            "(and Optionally a BRANCH).~%"
                            "You supplied the following: ~a ~%")
             non-options))
-          ((not (file-exists? (car non-options)))
-           (format #t "ERROR: Directory ~a does not exist!~%" (car non-options)))
+          ((not (file-exists? (pagr-info-directory pagr-info)))
+           (format #t "ERROR: Directory ~a does not exist!~%" (pagr-info-directory pagr-info)))
           ((and (not push) status)
-           (if (= non-option-count 2)
-               (status-all-git-repos (car non-options) (cdr non-options))
-               (status-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+           (status-all-git-repos pagr-info))
           ((and (not status) push)
-           (if (= non-option-count 2)
-               (push-all-git-repos (car non-options) (cdr non-options))
-               (push-all-git-repos (car non-options) (cadr non-options) (cddr non-options))))
+           (push-all-git-repos pagr-info))
           (else
            (display my-usage-message)))))
