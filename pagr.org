@@ -1673,6 +1673,7 @@ This is the top of that file.
 (define-module (<<project-ns>> <<project-name>>)
   :use-module (ice-9 ftw)
   :use-module (srfi srfi-9)
+  :use-module (git)
   :export (push-all-git-repos
            status-all-git-repos
            make-pagr-info
@@ -1828,6 +1829,28 @@ Entirely based on side effects.
     (farewell-the-user)))
 #+end_src
 
+*** List Changed Files
+#+begin_src scheme
+(define* (list-delta-files repository)
+  "Check for changed files with libgit2.
+
+Arguments
+=========
+REPOSITORY <string>: The name of the directory the repository lives in locally.
+
+Returns
+=======
+A <list> of <strings> representing the modified files in the repo..
+
+Side Effects
+============
+Relies on outside binary (git)."
+
+  (let* ((repo (repository-open (string-append repository "/.git")))
+         (statuses (status-list->status-entries (status-list-new repo (make-status-options))))
+         (diffs (map-in-order status-entry-index-to-workdir statuses)))
+    (map-in-order (lambda (x) (diff-file-path (diff-delta-new-file x))) diffs)))
+#+end_src
 *** Status of Repo
 #+begin_src scheme
 (define* (status-git-repo repository remote branch)
@@ -1846,10 +1869,14 @@ A <string> representing the git command's exit status.
 Side Effects
 ============
 Relies on outside binary (git)."
-
+  
   (narrate-directory-status repository)
-  (display (string-append "git -C " repository " status -sbM \n"))
-  (system (string-append "git -C " repository " status -sbM \n")))
+  (let* ((changed-files (list-delta-files repository))
+         (number-of-changed-files (length changed-files)))
+    (unless (= number-of-changed-files 0)
+      (display "\n\nUncommitted Changes:\n\n")
+      (map (lambda (x) (display (string-append " - " x "\n"))) changed-files))))
+    
 #+end_src
 
 *** Status All Git Repos (sagr)
@@ -1947,8 +1974,15 @@ Side Effects
 ============
 Displays a message to the user.
 "
-
-  (display (string-append "Checking " directory " now!\n")))
+  (let ((reponame (basename directory)))
+  (display (string-append
+            "\n╭─────────"
+            (make-string (string-length reponame) #\x2500)
+            "─────╮\n│Checking "
+            reponame
+            " now!│\n╰─────────"
+            (make-string (string-length reponame) #\x2500)
+            "─────╯"))))
 
 #+end_src
 
@@ -1969,7 +2003,7 @@ Side Effects
 ============
 Displays a message to the user."
 
-  (display "All directories processed!\n"))
+  (display "\n\nAll directories processed!\n"))
 #+end_src
 
 ** Executable
@@ -2049,11 +2083,13 @@ here for future use.
         (status (option-ref options 'status #false))
         (non-option-count (length non-options))
         (pagr-info (cond ((= non-option-count 2)
-                          (make-pagr-info (car non-options)
+                          (make-pagr-info (canonicalize-path
+                                           (car non-options))
                                           (cadr non-options)
                                           "trunk"))
                          ((= non-option-count 3)
-                          (make-pagr-info (car non-options)
+                          (make-pagr-info (canonicalize-path
+                                           (car non-options))
                                           (cadr non-options)
                                           (caddr non-options)))
                          (else #false))))

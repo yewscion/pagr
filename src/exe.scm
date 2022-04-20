@@ -54,11 +54,13 @@
         (status (option-ref options 'status #false))
         (non-option-count (length non-options))
         (pagr-info (cond ((= non-option-count 2)
-                          (make-pagr-info (car non-options)
+                          (make-pagr-info (canonicalize-path
+                                           (car non-options))
                                           (cadr non-options)
                                           "trunk"))
                          ((= non-option-count 3)
-                          (make-pagr-info (car non-options)
+                          (make-pagr-info (canonicalize-path
+                                           (car non-options))
                                           (cadr non-options)
                                           (caddr non-options)))
                          (else #false))))
