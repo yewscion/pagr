@@ -137,8 +137,9 @@ Side Effects
 Relies on outside binary (git)."
 
   (let* ((repo (repository-open (string-append repository "/.git")))
-         (statuses (status-list->status-entries (status-list-new repo (make-status-options))))
-         (diffs (map-in-order status-entry-index-to-workdir statuses)))
+         (statuses (status-list->status-entries
+                    (status-list-new repo (make-status-options))))
+         (diffs (map-in-order status-entry-index-to-workdir statusoes)))
     (map-in-order (lambda (x) (diff-file-path (diff-delta-new-file x))) diffs)))
 
 (define* (status-git-repo repository remote branch)
