@@ -11,11 +11,12 @@
            pagr-info?))
 
 (define-record-type <pagr-info>
-  (make-pagr-info directory remote branch)
+  (make-pagr-info directory remote branch brief)
   pagr-info?
   (directory pagr-info-directory)
   (remote pagr-info-remote)
-  (branch pagr-info-branch))
+  (branch pagr-info-branch)
+  (brief pagr-info-brief))
 
 (define (directory->list directory)
   "Build a list of files in a specified directory.
@@ -74,7 +75,7 @@ Depends on the Directory's contents.
 "
   (filter repository? (directory->list directory)))
 
-(define* (push-git-repo repository remote #:optional (branch "trunk"))
+(define (push-git-repo repository remote branch brief)
   "Call system git to push a git repository.
 
 Arguments
@@ -92,7 +93,8 @@ Side Effects
 Relies on outside binary (git)."
 
   (narrate-directory-push repository)
-  (display (string-append "git -C " repository " push " remote " " branch "\n"))
+  (unless brief
+    (display (string-append "git -C " repository " push " remote " " branch "\n")))
   (system (string-append "git -C " repository " push " remote " " branch)))
 
 (define* (push-all-git-repos pagr-info)
@@ -100,8 +102,9 @@ Relies on outside binary (git)."
 
 Arguments
 =========
-PAGR-INFO <srfi-9 record>: A structure containing three <string> fields: 
-                           directory, remote, and branch.
+PAGR-INFO <srfi-9 record>: A structure containing four fields: 
+                           directory <string>, remote <string>,
+                           branch <string>, and brief <boolean>.
 
 Returns
 =======
@@ -113,11 +116,12 @@ Entirely based on side effects.
 "
   (let ((directory (pagr-info-directory pagr-info))
         (remote (pagr-info-remote pagr-info))
-        (branch (pagr-info-branch pagr-info)))
+        (branch (pagr-info-branch pagr-info))
+        (brief (pagr-info-brief pagr-info)))
     (greet-the-user directory)
     (map
      (lambda (repo)
-       (push-git-repo repo remote branch))
+       (push-git-repo repo remote branch brief))
      (find-git-repos directory))
     (farewell-the-user)))
 
@@ -139,10 +143,10 @@ Relies on outside binary (git)."
   (let* ((repo (repository-open (string-append repository "/.git")))
          (statuses (status-list->status-entries
                     (status-list-new repo (make-status-options))))
-         (diffs (map-in-order status-entry-index-to-workdir statusoes)))
+         (diffs (map-in-order status-entry-index-to-workdir statuses)))
     (map-in-order (lambda (x) (diff-file-path (diff-delta-new-file x))) diffs)))
 
-(define* (status-git-repo repository remote branch)
+(define* (status-git-repo repository remote branch brief)
   "Call system git to check the status of a repository.
 
 Arguments
@@ -159,10 +163,13 @@ Side Effects
 ============
 Relies on outside binary (git)."
   
-  (narrate-directory-status repository)
+  (unless brief
+    (narrate-directory-status repository))
   (let* ((changed-files (list-delta-files repository))
          (number-of-changed-files (length changed-files)))
     (unless (= number-of-changed-files 0)
+      (when brief
+        (narrate-directory-status repository))
       (display "\n\nUncommitted Changes:\n\n")
       (map (lambda (x) (display (string-append " - " x "\n"))) changed-files))))
 
@@ -171,8 +178,9 @@ Relies on outside binary (git)."
 
 Arguments
 =========
-PAGR-INFO <srfi-9 record>: A structure containing three <string> fields: 
-                           directory, remote, and branch.
+PAGR-INFO <srfi-9 record>: A structure containing four fields: 
+                           directory <string>, remote <string>,
+                           branch <string>, and brief <boolean>.
 
 Returns
 =======
@@ -184,11 +192,12 @@ Entirely based on side effects.
 "
   (let ((directory (pagr-info-directory pagr-info))
         (remote (pagr-info-remote pagr-info))
-        (branch (pagr-info-branch pagr-info)))
+        (branch (pagr-info-branch pagr-info))
+        (brief (pagr-info-brief pagr-info)))
     (greet-the-user directory)
     (map
      (lambda (repo)
-       (status-git-repo repo remote branch))
+       (status-git-repo repo remote branch brief))
      (find-git-repos directory))
     (farewell-the-user)))
 
