@@ -92,8 +92,8 @@ Side Effects
 ============
 Relies on outside binary (git)."
 
-  (narrate-directory-push repository)
   (unless brief
+    (narrate-directory-push repository)
     (display (string-append "git -C " repository " push " remote " " branch "\n")))
   (system (string-append "git -C " repository " push " remote " " branch)))
 
@@ -236,7 +236,10 @@ Side Effects
 Displays a message to the user.
 "
 
-  (display (string-append "Pushing " directory " now!\n")))
+  (display (string-append
+            "\n"
+            (directory-header "Pushing" directory)
+            "\n")))
 
 (define (narrate-directory-status directory)
   "Tell the user what directory checking, so errors can be caught.
@@ -254,14 +257,47 @@ Side Effects
 Displays a message to the user.
 "
   (let ((reponame (basename directory)))
-  (display (string-append
-            "\n╭─────────"
-            (make-string (string-length reponame) #\x2500)
-            "─────╮\n│Checking "
-            reponame
-            " now!│\n╰─────────"
-            (make-string (string-length reponame) #\x2500)
-            "─────╯"))))
+    (display (string-append
+              "\n"
+              (directory-header "Checking" reponame)))))
+(define (directory-header operation directory)
+  "Return a header for performing OPERATION on the DIRECTORY specified.
+
+This is a CALCULATION.
+
+Arguments
+=========
+OPERATION <string>: The operation to be performed on the DIRECTORY.
+DIRECTORY <string>: The directory in which to apply the OPERATION.
+
+Returns
+=======
+A <string> representing a standardized header to communicate to the
+user what is happening.
+
+Impurities
+==========
+None."
+  (let* ((operation-length (string-length operation))
+         (directory-length (string-length directory))
+         (flat-border-char #\x2500)
+         (top-bottom-filler
+          (string-append
+           (make-string operation-length flat-border-char)
+           "─"
+           (make-string directory-length flat-border-char))))
+    (string-append
+     "╭─"
+     top-bottom-filler
+     "──────╮\n│ "
+     operation
+     " "
+     directory
+     " now! │\n╰─"
+     top-bottom-filler
+     "──────╯")))
+  
+
 
 (define (farewell-the-user)
   "Say goodbye to the user.

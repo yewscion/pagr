@@ -25,12 +25,12 @@
    "Explanation of Arguments:\n\n"
 
    "  DIRECTORY: The directory in which all of the git\n"
-   "             repositories reside.\n"
+   "             repositories reside. Default: \"~/Documents/\".\n"
    "  REMOTE:    The name of the remote branch to which\n"
    "             all git repositories found should be\n"
-   "             pushed.\n"
+   "             pushed. Default: \"origin\".\n"
    "  BRANCH:    The name of the branch we're dealing with.\n"
-   "             Defaults to \"trunk\" if missing.\n\n"
+   "             Default: \"trunk\".\n\n"
 
    "Explanation of Actions:\n\n"
    
@@ -63,13 +63,15 @@
          (brief (option-ref options 'brief #false))
          (non-option-count (length non-options))
          (directory (cond ((= non-option-count 0)
-                           "Documents")
+                           (string-append
+                            (getenv "HOME")
+                            "/Documents/"))
                           (else
                            (car non-options))))
          (pagr-info (cond ((not (file-exists? directory))
                            (error-dir-dne directory)
                            #false)
-                          ((= non-option-count 1)
+                          ((< non-option-count 2)
                            (make-pagr-info (canonicalize-path
                                             directory)
                                            "origin"
